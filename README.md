@@ -1,2 +1,4 @@
 # HASAAOSE
-High Availability and Safety Automatic Algorithm Online-Judge System for Examinations based on NOJ.
+**H**igh **A**vailability and **S**afety **A**utomatic **A**lgorithm **O**nline-Judge **S**ystem for **E**xaminations based on [NOJ](https://github.com/ZsgsDesign/NOJ).
+
+Available only in Chinese Simplified.
