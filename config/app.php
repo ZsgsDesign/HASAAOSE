@@ -272,9 +272,9 @@ return [
     */
 
     'version' => [
-        "author"=>"John Zhang",
-        "organization"=>"NJUPT ICPC Team",
-        "developers"=>"John Zhang, David Diao",
+        "author"=>"Youjie Zhang",
+        "organization"=>"Youjie Zhang",
+        "developers"=>"Youjie Zhang",
         "major"=>"0.1.0",
     ],
 

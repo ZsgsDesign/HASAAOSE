@@ -66,9 +66,9 @@ Route::get('/discussion/{dcode}', 'ProblemController@discussionPost')->middlewar
 
 Route::get('/status', 'StatusController@index')->middleware('contest_account', 'user.banned')->name('status_index');
 
-Route::group(['prefix' => 'dojo','as' => 'dojo.','middleware' => ['user.banned', 'contest_account']], function () {
-    Route::get('/', 'DojoController@index')->name('index');
-});
+// Route::group(['prefix' => 'dojo','as' => 'dojo.','middleware' => ['user.banned', 'contest_account']], function () {
+//     Route::get('/', 'DojoController@index')->name('index');
+// });
 
 Route::group(['namespace' => 'Group', 'prefix' => 'group','as' => 'group.','middleware' => ['contest_account', 'user.banned']], function () {
     Route::get('/', 'IndexController@index')->name('index');
@@ -131,22 +131,22 @@ Route::group(['prefix' => 'term', 'middleware' => ['user.banned']], function () 
     Route::get('/user', 'TermController@user')->name('term.user');
 });
 
-Route::group(['namespace' => 'Tool', 'middleware' => ['contest_account', 'user.banned']], function () {
-    Route::group(['prefix' => 'tool'], function () {
-        Route::redirect('/', '/', 301);
-        Route::group(['prefix' => 'pastebin'], function () {
-            Route::redirect('/', '/tool/pastebin/create', 301);
-            Route::get('/create', 'PastebinController@create')->middleware('auth')->name('tool_pastebin_create');
-            Route::get('/view/{$code}', 'PastebinController@view')->name('tool_pastebin_view');
-        });
-        Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
-            Route::group(['prefix' => 'pastebin'], function () {
-                Route::post('generate', 'PastebinController@generate')->middleware('auth')->name('tool_ajax_pastebin_generate');
-            });
-        });
-    });
-    Route::get('/pb/{code}', 'PastebinController@view')->name('tool_pastebin_view_shortlink');
-});
+// Route::group(['namespace' => 'Tool', 'middleware' => ['contest_account', 'user.banned']], function () {
+//     Route::group(['prefix' => 'tool'], function () {
+//         Route::redirect('/', '/', 301);
+//         Route::group(['prefix' => 'pastebin'], function () {
+//             Route::redirect('/', '/tool/pastebin/create', 301);
+//             Route::get('/create', 'PastebinController@create')->middleware('auth')->name('tool_pastebin_create');
+//             Route::get('/view/{$code}', 'PastebinController@view')->name('tool_pastebin_view');
+//         });
+//         Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
+//             Route::group(['prefix' => 'pastebin'], function () {
+//                 Route::post('generate', 'PastebinController@generate')->middleware('auth')->name('tool_ajax_pastebin_generate');
+//             });
+//         });
+//     });
+//     Route::get('/pb/{code}', 'PastebinController@view')->name('tool_pastebin_view_shortlink');
+// });
 
 Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.banned']], function () {
     Route::post('submitSolution', 'ProblemController@submitSolution')->middleware('auth', 'throttle:1,0.17');
@@ -237,9 +237,9 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.
         Route::post('report', 'AbuseController@report')->middleware('auth')->name('ajax.abuse.report');
     });
 
-    Route::group(['prefix' => 'dojo'], function () {
-        Route::post('dojo', 'DojoController@complete')->middleware('auth')->name('ajax.dojo.complete');
-    });
+    // Route::group(['prefix' => 'dojo'], function () {
+    //     Route::post('dojo', 'DojoController@complete')->middleware('auth')->name('ajax.dojo.complete');
+    // });
 });
 
 Auth::routes(['verify' => true]);

@@ -204,11 +204,11 @@
                             <a class="nav-link @if ($navigation === "Problem") active @endif" href="/problem">{{__('navigation.problem')}}</a>
                         </li>
                     @endif
-                    @if(!Auth::check() || is_null(Auth::user()->contest_account))
+                    {{-- @if(!Auth::check() || is_null(Auth::user()->contest_account))
                         <li class="nav-item">
                             <a class="nav-link @if ($navigation === "Dojo") active @endif" href="/dojo">{{__('navigation.dojo')}}</a>
                         </li>
-                    @endif
+                    @endif --}}
                     @if(!Auth::check() || is_null(Auth::user()->contest_account))
                         <li class="nav-item">
                             <a class="nav-link @if ($navigation === "Status") active @endif" href="/status">{{__('navigation.status')}}</a>
@@ -273,7 +273,7 @@
                                     -->
                                     @endif
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/tool/pastebin/create"><i class="MDI content-paste"></i> {{__('navigation.pastebin')}}</a>
+                                    {{-- <a class="dropdown-item" href="/tool/pastebin/create"><i class="MDI content-paste"></i> {{__('navigation.pastebin')}}</a> --}}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/system/info"><i class="MDI information-outline"></i> {{__('navigation.systeminfo')}}</a>
                                     <a class="dropdown-item" href="https://github.com/ZsgsDesign/NOJ/issues"><i class="MDI bug"></i> {{__('navigation.report')}}</a>
@@ -331,7 +331,7 @@
                         <h5 class="title mb-4 mt-3 font-bold">{{__('footer.services')}}</h5>
                         <p class="mb-1"><a href="/status">{{__('footer.queue')}}</a></p>
                         <p class="mb-1"><a href="/system/info">{{__('navigation.systeminfo')}}</a></p>
-                        <p class="mb-1"><a href="/tool/pastebin/create">{{__('navigation.pastebin')}}</a></p>
+                        {{-- <p class="mb-1"><a href="/tool/pastebin/create">{{__('navigation.pastebin')}}</a></p> --}}
                     </div>
 
                     <hr class="clearfix w-100 d-md-none">
