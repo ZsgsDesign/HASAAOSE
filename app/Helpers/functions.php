@@ -30,11 +30,7 @@ use App\Models\Latex\LatexModel;
 if (!function_exists('version')) {
     function version()
     {
-        $version=new Version(
-            '0.0.0',
-            base_path()
-        );
-        return $version->getVersion();
+        return config("app.version.major");
     }
 }
 
