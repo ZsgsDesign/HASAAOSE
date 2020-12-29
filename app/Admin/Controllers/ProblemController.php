@@ -28,8 +28,8 @@ class ProblemController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Problems')
-            ->description('all problems')
+            ->header('题目')
+            ->description('所有题目')
             ->body($this->grid()->render());
     }
 
@@ -43,8 +43,8 @@ class ProblemController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Problem Detail')
-            ->description('the detail of problems')
+            ->header('题目详情')
+            ->description('题目的详细信息')
             ->body($this->detail($id));
     }
 
@@ -58,8 +58,8 @@ class ProblemController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit Problem')
-            ->description('edit the detail of problems')
+            ->header('编辑题目')
+            ->description('编辑题目的详情')
             ->body($this->form()->edit($id));
     }
 
@@ -72,8 +72,8 @@ class ProblemController extends Controller
     public function import(Content $content)
     {
         return $content
-            ->header('Import New Problem')
-            ->description('import a new problem from POEM or POETRY')
+            ->header('导入题目')
+            ->description('由POEM或POETRY导入题目')
             ->body(new ImportPOEM());
     }
 
@@ -86,8 +86,8 @@ class ProblemController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create New Problem')
-            ->description('create a new problem')
+            ->header('创建新的题目')
+            ->description('创建新的题目')
             ->body($this->form(true));
     }
 

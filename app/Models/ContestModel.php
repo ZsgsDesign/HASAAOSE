@@ -23,7 +23,7 @@ class ContestModel extends Model
     const UPDATED_AT=null;
     const CREATED_AT=null;
 
-    public $rule=["Unknown", "ICPC", "IOI", "Custom ICPC", "Custom IOI"];
+    public $rule=["Unknown", "ICPC", "IOI", "Custom ICPC", "Custom IOI", "研究生复试机试"];
 
     public function calcLength($a, $b)
     {

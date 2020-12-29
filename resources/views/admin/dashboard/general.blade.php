@@ -28,7 +28,7 @@ version-badge > inline-div:last-of-type{
 </style>
 <div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">General</h3>
+        <h3 class="box-title">总体情况</h3>
 
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -42,26 +42,11 @@ version-badge > inline-div:last-of-type{
         <div class="table-responsive">
             <div class="text-center mb-5 mt-5">
                 <img src="/favicon.png" style="width:25%;">
-                <h1 class="wemd-grey-text wemd-text-darken-3">NOJ</h1>
-                <p>Nanjing University of Posts and Telecommunications Online Judge</p>
+                <h1 class="wemd-grey-text wemd-text-darken-3">{{config("app.displayName")}}</h1>
+                <p>High Availability and Safety Automatic Algorithm Online-Judge System for Examinations based on NOJ</p>
                 <version-badge>
                     <inline-div>Version</inline-div><inline-div>{{$status[0]['value']}}</inline-div>
                 </version-badge>
-                @unless(is_null($version))
-                @if($version["updatable"])
-                <div>
-                    <a class="btn btn-sm btn-default" title="Update to {{$version['name']}}">
-                        <i class="MDI update"></i><span class="hidden-xs">&nbsp;&nbsp;Update to {{$version['name']}}</span>
-                    </a>
-                </div>
-                @else
-                <div>
-                    <a class="btn btn-sm btn-default btn-disabled" disabled title="Already Latest">
-                        <i class="MDI update"></i><span class="hidden-xs">&nbsp;&nbsp;Already Latest</span>
-                    </a>
-                </div>
-                @endif
-                @endunless
             </div>
             <table class="table table-striped">
 

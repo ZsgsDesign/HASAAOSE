@@ -70,23 +70,23 @@ Route::get('/status', 'StatusController@index')->middleware('contest_account', '
 //     Route::get('/', 'DojoController@index')->name('index');
 // });
 
-Route::group(['namespace' => 'Group', 'prefix' => 'group','as' => 'group.','middleware' => ['contest_account', 'user.banned']], function () {
-    Route::get('/', 'IndexController@index')->name('index');
-    Route::get('/create', 'IndexController@create')->name('create');
-    Route::get('/{gcode}', 'IndexController@detail')->middleware('auth', 'group.exist', 'group.banned')->name('detail');
+// Route::group(['namespace' => 'Group', 'prefix' => 'group','as' => 'group.','middleware' => ['contest_account', 'user.banned']], function () {
+//     Route::get('/', 'IndexController@index')->name('index');
+//     Route::get('/create', 'IndexController@create')->name('create');
+//     Route::get('/{gcode}', 'IndexController@detail')->middleware('auth', 'group.exist', 'group.banned')->name('detail');
 
-    Route::get('/{gcode}/analysis', 'IndexController@analysis')->middleware('auth', 'group.exist', 'group.banned')->name('analysis');
-    Route::get('/{gcode}/analysisDownload', 'IndexController@analysisDownload')->middleware('auth', 'group.exist', 'group.banned')->name('analysis.download');
-    Route::group(['prefix' => '{gcode}/settings','as' => 'settings.', 'middleware' => ['privileged', 'group.exist', 'group.banned']], function () {
-        Route::get('/', 'AdminController@settings')->middleware('auth')->name('index');
-        Route::get('/general', 'AdminController@settingsGeneral')->middleware('auth')->name('general');
-        Route::get('/return', 'AdminController@settingsReturn')->middleware('auth')->name('return');
-        Route::get('/danger', 'AdminController@settingsDanger')->middleware('auth')->name('danger');
-        Route::get('/member', 'AdminController@settingsMember')->middleware('auth')->name('member');
-        Route::get('/contest', 'AdminController@settingsContest')->middleware('auth')->name('contest');
-        Route::get('/problems', 'AdminController@problems')->middleware('auth')->name('problems');
-    });
-});
+//     Route::get('/{gcode}/analysis', 'IndexController@analysis')->middleware('auth', 'group.exist', 'group.banned')->name('analysis');
+//     Route::get('/{gcode}/analysisDownload', 'IndexController@analysisDownload')->middleware('auth', 'group.exist', 'group.banned')->name('analysis.download');
+//     Route::group(['prefix' => '{gcode}/settings','as' => 'settings.', 'middleware' => ['privileged', 'group.exist', 'group.banned']], function () {
+//         Route::get('/', 'AdminController@settings')->middleware('auth')->name('index');
+//         Route::get('/general', 'AdminController@settingsGeneral')->middleware('auth')->name('general');
+//         Route::get('/return', 'AdminController@settingsReturn')->middleware('auth')->name('return');
+//         Route::get('/danger', 'AdminController@settingsDanger')->middleware('auth')->name('danger');
+//         Route::get('/member', 'AdminController@settingsMember')->middleware('auth')->name('member');
+//         Route::get('/contest', 'AdminController@settingsContest')->middleware('auth')->name('contest');
+//         Route::get('/problems', 'AdminController@problems')->middleware('auth')->name('problems');
+//     });
+// });
 
 Route::group([
     'namespace' => 'Contest',
@@ -122,9 +122,9 @@ Route::group(['prefix' => 'system', 'middleware' => ['user.banned']], function (
     Route::get('/info', 'SystemController@info')->name('system_info');
 });
 
-Route::group(['prefix' => 'rank', 'middleware' => ['user.banned']], function () {
-    Route::get('/', 'RankController@index')->middleware('contest_account')->name('rank_index');
-});
+// Route::group(['prefix' => 'rank', 'middleware' => ['user.banned']], function () {
+//     Route::get('/', 'RankController@index')->middleware('contest_account')->name('rank_index');
+// });
 
 Route::group(['prefix' => 'term', 'middleware' => ['user.banned']], function () {
     Route::redirect('/', '/term/user', 301);
@@ -174,27 +174,27 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.
         Route::post('allDelete', 'MessageController@deleteAll')->middleware('auth');
     });
 
-    Route::group(['prefix' => 'group'], function () {
-        Route::post('changeNickName', 'GroupController@changeNickName')->middleware('auth');
-        Route::post('createGroup', 'GroupController@createGroup')->middleware('auth');
-        Route::post('getPracticeStat', 'GroupController@getPracticeStat')->middleware('auth');
-        Route::post('eloChangeLog', 'GroupController@eloChangeLog')->middleware('auth');
+    // Route::group(['prefix' => 'group'], function () {
+    //     Route::post('changeNickName', 'GroupController@changeNickName')->middleware('auth');
+    //     Route::post('createGroup', 'GroupController@createGroup')->middleware('auth');
+    //     Route::post('getPracticeStat', 'GroupController@getPracticeStat')->middleware('auth');
+    //     Route::post('eloChangeLog', 'GroupController@eloChangeLog')->middleware('auth');
 
-        Route::post('changeMemberClearance', 'GroupManageController@changeMemberClearance')->middleware('auth');
-        Route::post('changeGroupImage', 'GroupManageController@changeGroupImage')->middleware('auth');
-        Route::post('changeJoinPolicy', 'GroupManageController@changeJoinPolicy')->middleware('auth');
-        Route::post('changeGroupName', 'GroupManageController@changeGroupName')->middleware('auth');
-        Route::post('approveMember', 'GroupManageController@approveMember')->middleware('auth');
-        Route::post('removeMember', 'GroupManageController@removeMember')->middleware('auth');
-        Route::post('inviteMember', 'GroupManageController@inviteMember')->middleware('auth');
-        Route::post('createNotice', 'GroupManageController@createNotice')->middleware('auth');
-        Route::post('changeSubGroup', 'GroupManageController@changeSubGroup')->middleware('auth');
+    //     Route::post('changeMemberClearance', 'GroupManageController@changeMemberClearance')->middleware('auth');
+    //     Route::post('changeGroupImage', 'GroupManageController@changeGroupImage')->middleware('auth');
+    //     Route::post('changeJoinPolicy', 'GroupManageController@changeJoinPolicy')->middleware('auth');
+    //     Route::post('changeGroupName', 'GroupManageController@changeGroupName')->middleware('auth');
+    //     Route::post('approveMember', 'GroupManageController@approveMember')->middleware('auth');
+    //     Route::post('removeMember', 'GroupManageController@removeMember')->middleware('auth');
+    //     Route::post('inviteMember', 'GroupManageController@inviteMember')->middleware('auth');
+    //     Route::post('createNotice', 'GroupManageController@createNotice')->middleware('auth');
+    //     Route::post('changeSubGroup', 'GroupManageController@changeSubGroup')->middleware('auth');
 
-        Route::post('addProblemTag', 'GroupAdminController@addProblemTag')->middleware('auth');
-        Route::post('removeProblemTag', 'GroupAdminController@removeProblemTag')->middleware('auth');
-        Route::get('generateContestAccount', 'GroupAdminController@generateContestAccount')->middleware('auth');
-        Route::post('refreshElo', 'GroupAdminController@refreshElo')->middleware('auth');
-    });
+    //     Route::post('addProblemTag', 'GroupAdminController@addProblemTag')->middleware('auth');
+    //     Route::post('removeProblemTag', 'GroupAdminController@removeProblemTag')->middleware('auth');
+    //     Route::get('generateContestAccount', 'GroupAdminController@generateContestAccount')->middleware('auth');
+    //     Route::post('refreshElo', 'GroupAdminController@refreshElo')->middleware('auth');
+    // });
 
     Route::group(['prefix' => 'contest'], function () {
         Route::get('updateProfessionalRate', 'ContestController@updateProfessionalRate')->middleware('auth');

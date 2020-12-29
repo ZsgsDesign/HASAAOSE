@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'NOJ Admin Panel',
+    'name' => 'HASAAOSE Admin Panel',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/static/img/icon/icon-white.png" style="height:20px;" alt="NOJ"> NOJ Admin',
+    'logo' => '<img src="/static/img/icon/icon-white.png" style="height:20px;" alt="NOJ"> HASAAOSE',
 
     /*
     |--------------------------------------------------------------------------

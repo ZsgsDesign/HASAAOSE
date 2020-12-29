@@ -309,7 +309,7 @@
                             <li class="list-group-item">
                                 <i class="MDI google-circles-extended"></i>
                                 <div class="bmd-list-group-col">
-                                    <p class="list-group-item-heading">{{$detail['group_info']['name']}}</p>
+                                    <p class="list-group-item-heading">南京邮电大学</p>
                                     <p class="list-group-item-text">{{__("contest.infobar.organizer")}}</p>
                                 </div>
                             </li>

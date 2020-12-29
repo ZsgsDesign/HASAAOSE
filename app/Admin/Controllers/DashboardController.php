@@ -11,11 +11,10 @@ class DashboardController
      */
     public static function general()
     {
-        $version=UpdateModel::checkUpdate();
+        // $version=UpdateModel::checkUpdate();
 
         $status = [
-            ['name' => 'NOJ Version',       'value' => version()],
-            ['name' => 'Lastest Version',   'value' => is_null($version)?'Failed to fetch latest version':$version["name"]],
+            ['name' => 'HASAAOSE Version',  'value' => version()],
             ['name' => 'Problems',          'value' => \App\Models\Eloquent\Problem::count()],
             ['name' => 'Solutions',         'value' => \App\Models\Eloquent\ProblemSolutionModel::count()],
             ['name' => 'Submissions',       'value' => \App\Models\Eloquent\Submission::count()],
@@ -26,7 +25,7 @@ class DashboardController
 
         return view('admin::dashboard.general', [
             'status'=>$status,
-            'version'=>$version
+            'version'=>version()
         ]);
     }
 }

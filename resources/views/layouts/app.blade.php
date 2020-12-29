@@ -214,19 +214,19 @@
                             <a class="nav-link @if ($navigation === "Status") active @endif" href="/status">{{__('navigation.status')}}</a>
                         </li>
                     @endif
-                    @if(!Auth::check() || is_null(Auth::user()->contest_account))
+                    {{-- @if(!Auth::check() || is_null(Auth::user()->contest_account))
                         <li class="nav-item">
                             <a class="nav-link @if ($navigation === "Rank") active @endif" href="/rank">{{__('navigation.rank')}}</a>
                         </li>
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link @if ($navigation === "Contest") active @endif" href="/contest">{{__('navigation.contest')}}</a>
                     </li>
-                    @if(!Auth::check() || is_null(Auth::user()->contest_account))
+                    {{-- @if(!Auth::check() || is_null(Auth::user()->contest_account))
                     <li class="nav-item">
                         <a class="nav-link @if ($navigation === "Group") active @endif" href="/group">{{__('navigation.group')}}</a>
                     </li>
-                    @endif
+                    @endif --}}
                     @if(!Auth::check() || is_null(Auth::user()->contest_account))
                         @foreach(getCustomUrl() as $u)
                             <li class="nav-item">
@@ -266,13 +266,11 @@
                                     <a class="dropdown-item" href="/account/submissions"><i class="MDI airballoon"></i> Submissions</a>
                                     <a class="dropdown-item" href="/account/settings"><i class="MDI settings"></i> Advanced Settings</a>
                                     -->
-                                    @if ("admin"===false)
-                                    <!--
+                                    @if (Auth::check() || Auth::user()->id==1)
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/admin"><i class="MDI view-dashboard"></i> Admin Tools</a>
-                                    -->
+                                    <a class="dropdown-item" href="/admin"><i class="MDI view-dashboard"></i> {{__('navigation.admin')}}</a>
                                     @endif
-                                    <div class="dropdown-divider"></div>
+                                    {{-- <div class="dropdown-divider"></div> --}}
                                     {{-- <a class="dropdown-item" href="/tool/pastebin/create"><i class="MDI content-paste"></i> {{__('navigation.pastebin')}}</a> --}}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/system/info"><i class="MDI information-outline"></i> {{__('navigation.systeminfo')}}</a>

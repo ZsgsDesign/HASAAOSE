@@ -98,7 +98,7 @@
         </form>
     </extra-section>
     @if(!$info['contest_account'])
-    <socialite-setting class="paper-card">
+    {{-- <socialite-setting class="paper-card">
         <p>{{__('dashboard.setting.socialiteInfo')}}</p>
         <div class="text-center">
             <account-bind class="github" style="display: inline-block; ">
@@ -109,7 +109,7 @@
                 @endif
             </account-bind>
         </div>
-    </socialite-setting>
+    </socialite-setting> --}}
     {{-- <style-section class="paper-card">
         <p>Style settings</p>
     </style-section> --}}

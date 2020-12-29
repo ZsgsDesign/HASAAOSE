@@ -13,8 +13,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Dashboard')
-            ->description('the general status of '.config("app.name"))
+            ->header('仪表盘')
+            ->description(config("app.name").'的总体情况')
             ->row(function(Row $row) {
 
                 $row->column(4, function(Column $column) {

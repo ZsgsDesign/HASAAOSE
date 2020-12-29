@@ -136,8 +136,8 @@
     <basic-section>
         <h3>{{$info["name"]}}</h3>
         @if($info["admin"])<p class="mb-0"><small class="wemd-indigo-text">{{__('dashboard.adminGroup')}}</small></p>@endif
-        @unless(is_null($info["professionalTitle"]))<p class="mb-0"><small class="{{$info["professionalTitleColor"]}}">{{$info["professionalTitle"]}}</small></p>@endunless
-        @unless(is_null($info["rankTitle"]))<p class="mb-0"><small class="{{$info["rankTitleColor"]}}">{{$info["rankTitle"]}}</small></p>@endunless
+        {{-- @unless(is_null($info["professionalTitle"]))<p class="mb-0"><small class="{{$info["professionalTitleColor"]}}">{{$info["professionalTitle"]}}</small></p>@endunless
+        @unless(is_null($info["rankTitle"]))<p class="mb-0"><small class="{{$info["rankTitleColor"]}}">{{$info["rankTitle"]}}</small></p>@endunless --}}
         {{-- <p style="margin-bottom: .5rem;"><small class="wemd-light-blue-text">站点管理员</small></p> --}}
         {{-- <p>{{$info["email"]}}</p> --}}
         <p id="user-describes" style="padding-top: 1rem;">{{$info['describes']}}</p>
@@ -156,7 +156,7 @@
     </basic-section>
     <hr class="atsast-line">
     <statistic-section>
-        <div class="row">
+        <div class="row justify-content-md-center">
             <div class="col-lg-4 col-12">
                 <statistic-block>
                     <h1>{{$info["solvedCount"]}}</h1>
@@ -169,7 +169,7 @@
                     <p>Submissions</p>
                 </statistic-block>
             </div> --}}
-            <div class="col-lg-4 col-12">
+            {{-- <div class="col-lg-4 col-12">
                 <statistic-block>
                     <h1>{{$info["professional_rate"]}}</h1>
                     <p>{{__('dashboard.rated')}}</p>
@@ -180,7 +180,7 @@
                     <h1>{{$info["rank"]}}</h1>
                     <p>{{__('dashboard.rank')}}</p>
                 </statistic-block>
-            </div>
+            </div> --}}
         </div>
         {{-- <div class="row">
             <div class="col-lg-6 col-12">
@@ -213,12 +213,12 @@
         @endif
     </solved-section>
     <social-section>
-        @if(empty($socialite_info['github']))
+        {{-- @if(empty($socialite_info['github']))
             <i class="MDI github-circle" style="opacity: 0.5"></i>
         @else
             <a href="{{$socialite_info['github']['homepage']}}" target="_blank"><i class="MDI github-circle"></i></a>
         @endif
         <i class="MDI email" style="opacity: 0.5"></i>
-        <i class="MDI web" style="opacity: 0.5"></i>
+        <i class="MDI web" style="opacity: 0.5"></i> --}}
     </social-section>
 </user-card>
