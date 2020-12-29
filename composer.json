@@ -1,0 +1,141 @@
+{
+    "name": "zsgsdesign/noj",
+    "type": "project",
+    "description": "Yet another Online Judge",
+    "keywords": [
+        "Online Judge",
+        "Virtual Judge"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3",
+        "barryvdh/laravel-dompdf": "^0.8.5",
+        "encore/laravel-admin": "^1.7",
+        "fideloper/proxy": "^4.0",
+        "fonts-asset/devicon": "^1.0",
+        "fonts-asset/mdi-wxss": "^1.0",
+        "fonts-asset/montserrat": "^1.0",
+        "fonts-asset/raleway": "^1.0",
+        "fonts-asset/roboto": "^1.0",
+        "fonts-asset/roboto-slab": "^1.0",
+        "graham-campbell/markdown": "^11.0",
+        "grubersjoe/bing-daily-photo": "^2.0",
+        "illuminate/support": "^6.0",
+        "imtigger/laravel-job-status": "^0.2.2",
+        "intervention/image": "^2.5",
+        "kub-at/php-simple-html-dom-parser": "~1.7.0",
+        "laracasts/utilities": "^3.0",
+        "laravel-admin-ext/backup": "^1.0",
+        "laravel-admin-ext/helpers": "^1.1",
+        "laravel-admin-ext/log-viewer": "^1.0",
+        "laravel-admin-ext/media-manager": "^1.0",
+        "laravel-admin-ext/redis-manager": "^1.0",
+        "laravel-admin-ext/scheduling": "^1.0",
+        "laravel/framework": "^6.0",
+        "laravel/passport": "^9.0",
+        "laravel/socialite": "^4.1",
+        "laravel/tinker": "^1.0",
+        "laravelium/sitemap": "^6.0",
+        "league/commonmark-ext-strikethrough": "^1.0",
+        "maatwebsite/excel": "^3.1",
+        "mews/purifier": "^3.2",
+        "nelexa/zip": "^3.1",
+        "njuptaaa/moss": "^1.2",
+        "njuptaaa/poem": "^1.0.3",
+        "npm-asset/animate.css": "^3.7",
+        "npm-asset/bootstrap-material-design": "4.1.2",
+        "npm-asset/chart.js": "^2.8",
+        "npm-asset/clipboard": "^2.0",
+        "npm-asset/codemirror": "^5.58",
+        "npm-asset/dompurify": "^1.0",
+        "npm-asset/fileicon-svg": "^1.0",
+        "npm-asset/highlightjs": "^9.12",
+        "npm-asset/jquery": "^3.3",
+        "npm-asset/jquery-datetimepicker": "^2.5",
+        "npm-asset/jquery-ui": "^1.12",
+        "npm-asset/lodash": "^4.17",
+        "npm-asset/marked": "^0.6.2",
+        "npm-asset/mathjax": "^2.7",
+        "npm-asset/monaco-editor": "0.17.1",
+        "npm-asset/pdfobject": "^2.1",
+        "npm-asset/perfect-scrollbar": "^1.4",
+        "npm-asset/popper.js": "^1.5",
+        "npm-asset/simplemde": "^1.11",
+        "oomphinc/composer-installers-extender": "^2.0",
+        "orangehill/iseed": "^2.6",
+        "phar-io/version": "^2.0",
+        "predis/predis": "^1.1",
+        "rmccue/requests": "^1.7",
+        "sebastian/version": "^2.0",
+        "x3zvawq/noj_simplemde": "dev-main",
+        "zsgsdesign/noj-admin-clike-editor": "dev-main"
+    },
+    "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.0",
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^2.0",
+        "phpunit/phpunit": "^7.5"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "secure-http": false
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset",
+            "fonts-asset"
+        ],
+        "installer-paths": {
+            "public/static/library/{$name}": [
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "public/static/fonts/{$name}": [
+                "type:fonts-asset"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "files": [
+            "app/Helpers/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "repositories": [{
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }]
+}
