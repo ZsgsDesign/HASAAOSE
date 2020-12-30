@@ -2,13 +2,17 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Eloquent\Submission as EloquentSubmissionModel;
+use App\Models\Eloquent\Submission;
 use App\Http\Controllers\Controller;
+use App\Models\Eloquent\Contest;
+use App\Models\Eloquent\Problem;
+use App\Models\Eloquent\UserModel;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Arr;
 
 class SubmissionController extends Controller
 {
@@ -23,8 +27,8 @@ class SubmissionController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Submissions')
-            ->description('all submissions')
+            ->header('提交')
+            ->description('所有提交')
             ->body($this->grid()->render());
     }
 
@@ -79,32 +83,44 @@ class SubmissionController extends Controller
      */
     protected function grid()
     {
-        $grid=new Grid(new EloquentSubmissionModel);
+        $grid=new Grid(new Submission);
         $grid->column('sid', "ID")->sortable();
-        $grid->time("Time");
-        $grid->memory("Memory");
-        $grid->verdict("Verdict")->display(function ($verdict) {
+        $grid->column("time", "时间占用")->display(function ($time) {
+            return "{$time}毫秒";
+        });
+        $grid->column("memory", "空间占用")->display(function ($memory) {
+            return "{$memory}千比特";
+        });
+        $grid->column('verdict', "结果")->display(function ($verdict) {
             return '<i class="fa fa-circle '.$this->color.'"></i> '.$verdict;
         });
-        $grid->language("Language");
-        $grid->submission_date("Submission Date")->display(function ($submission_date) {
+        $grid->column("language", "编程语言");
+        $grid->column("submission_date", "提交日期")->display(function ($submission_date) {
             return date("Y-m-d H:i:s", $submission_date);
         });
-        ;
-        $grid->uid("UID");
-        $grid->cid("CID");
-        $grid->pid("PID");
-        $grid->jid("JID");
-        $grid->coid("COID");
-        $grid->score("Raw Score");
+        $grid->column("user_name","用户名称")->display(function () {
+            return $this->user->name;
+        });
+        $grid->column("contest_name","比赛名称")->display(function () {
+            return $this->contest->name;
+        });
+        $grid->column("problem_pcode","题目名称")->display(function () {
+            return $this->problem->readable_name;
+        });
+        $grid->column("judger_name","评测机")->display(function () {
+            return $this->judger_name;
+        });
+        $grid->column("parsed_score","得分")->display(function () {
+            return $this->parsed_score;
+        });
         $grid->filter(function (Grid\Filter $filter) {
             $filter->column(6, function ($filter) {
                 $filter->like('verdict');
             });
             $filter->column(6, function ($filter) {
-                $filter->equal('cid', 'Contest ID');
-                $filter->equal('uid', 'User ID');
-                $filter->equal('pid', 'Problem ID');
+                $filter->equal('cid', '考试')->select(Contest::all()->pluck('name', 'cid'));
+                $filter->equal('uid', '用户')->select(UserModel::all()->pluck('name', 'id'));
+                $filter->equal('pid', '题目')->select(Problem::all()->pluck('readable_name', 'pid'));
             });
         });
         return $grid;
@@ -118,7 +134,7 @@ class SubmissionController extends Controller
      */
     protected function detail($id)
     {
-        $show=new Show(EloquentSubmissionModel::findOrFail($id));
+        $show=new Show(Submission::findOrFail($id));
         $show->sid('SID');
         $show->time();
         $show->memory();
@@ -184,7 +200,7 @@ class SubmissionController extends Controller
      */
     protected function form()
     {
-        $form=new Form(new EloquentSubmissionModel);
+        $form=new Form(new Submission);
         $form->model()->makeVisible('password');
         $form->tab('Basic', function (Form $form) {
             $form->display('sid');

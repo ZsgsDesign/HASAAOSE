@@ -29,4 +29,8 @@ class UserModel extends Model
     public function banneds() {
         return $this->hasMany('App\Models\Eloquent\UserBanned');
     }
+
+    public function submissions() {
+        return $this->hasMany('App\Models\Eloquent\Submission');
+    }
 }

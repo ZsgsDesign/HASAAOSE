@@ -149,7 +149,7 @@
                                 @if($contest_rule==1)
                                     <small>{{$p["passed_count"]}} / {{$p["submission_count"]}}</small>
                                 @else
-                                    <small>{{$p["score"]}} / {{$p["points"]}} Points</small>
+                                    <small>{{round($p["score"],1)}} / {{$p["points"]}} 分</small>
                                 @endif
                             </div>
                             <div class="text-right tag-list" style="display: inline-block; width:auto">

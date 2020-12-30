@@ -117,8 +117,8 @@ class ProblemController extends Controller
         $grid->order_index("order")->sortable();
         $grid->filter(function(Grid\Filter $filter) {
             $filter->disableIdFilter();
-            $filter->like('pcode');
-            $filter->like('title');
+            $filter->like('pcode','题目编号');
+            $filter->like('title','题目标题');
         });
 
         // $grid->disableCreateButton();

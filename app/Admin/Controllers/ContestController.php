@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Models\ContestModel;
 use App\Models\Eloquent\Contest as EloquentContestModel;
 use App\Http\Controllers\Controller;
+use App\Models\Eloquent\Problem;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -107,8 +108,8 @@ class ContestController extends Controller
         });
         $grid->registration_due("Registration Due");
         $grid->filter(function(Grid\Filter $filter) {
-            $filter->equal('gid');
-            $filter->like('name');
+            // $filter->equal('gid');
+            $filter->like('name', "名称");
         });
         return $grid;
     }
@@ -163,6 +164,16 @@ class ContestController extends Controller
         $form->text('custom_title', '自定义考试导航标题');
         $form->image('custom_icon', '自定义考试导航图标')->uniqueName()->move("static/img/contest");
         $form->image('img', '考试封面图')->uniqueName()->move("static/img/contest");
+        $form->hasMany('problems', '考试题目', function (Form\NestedForm $form) {
+            $form->number('number', '编号')->default(1)->required();
+            $form->text('ncode', '字母题号')->default("A")->required();
+            $form->select('pid', '题目')->options(Problem::all()->pluck('pcode', 'pid'))->required();
+            $form->text('alias', '题目别名');
+            $form->number('points', '题目分值')->default(100)->required();
+        });
+        $form->saving(function (Form $form) {
+            if(!blank($form->image)) $form->image = "/$form->image";
+        });
         return $form;
     }
 }

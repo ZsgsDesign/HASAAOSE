@@ -730,7 +730,7 @@ class ContestModel extends Model
                     return 1;
                 }
             });
-        } elseif ($contest_info["rule"]==2) {
+        } elseif ($contest_info["rule"]==2 || $contest_info["rule"]==5) {
             // IOI Mode
             foreach ($submissionUsers as $s) {
                 $prob_detail=[];
@@ -1631,7 +1631,7 @@ class ContestModel extends Model
                     return 1;
                 }
             });
-        }else if ($contest_info["rule"]==2){
+        }else if ($contest_info["rule"]==2 || $contest_info["rule"]==5){
             usort($ret, function ($a, $b) {
                 if ($a["score"]==$b["score"]) {
                     if ($a["solved"]==$b["solved"]) {
@@ -1713,7 +1713,7 @@ class ContestModel extends Model
                     "problem_detail" => $prob_detail
                 ];
             }
-        } elseif ($contest_info["rule"]==2) {
+        } elseif ($contest_info["rule"]==2 || $contest_info["rule"]==5) {
             // IOI Mode
             if($id == count($ret)){
                 $prob_detail = [];

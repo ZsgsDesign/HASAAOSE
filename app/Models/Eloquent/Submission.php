@@ -35,6 +35,11 @@ class Submission extends Model
         return $this->belongsTo('App\Models\Eloquent\Problem', 'pid');
     }
 
+    public function getJudgerNameAttribute()
+    {
+        return "默认评测机";
+    }
+
     public function getNcodeAttribute()
     {
         $contest = $this->contest;
@@ -76,6 +81,12 @@ class Submission extends Model
 
     public function getLangAttribute()
     {
+        return $this->compiler->lang;
+    }
+
+    public function getParsedScoreAttribute()
+    {
+        if($this->contest)
         return $this->compiler->lang;
     }
 

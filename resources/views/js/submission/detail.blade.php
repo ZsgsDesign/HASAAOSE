@@ -95,7 +95,7 @@
                         $(`#submission${id} pre`).remove();
                     }
                     if(ret.data.owner){
-                        $(`#submission${id} .modal-footer button:nth-of-type(2)`).removeClass("d-none");
+                        // $(`#submission${id} .modal-footer button:nth-of-type(2)`).removeClass("d-none");
                     }
                 } else {
                     alert(ret.desc);
