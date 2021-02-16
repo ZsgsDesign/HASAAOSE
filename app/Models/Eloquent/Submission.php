@@ -86,8 +86,12 @@ class Submission extends Model
 
     public function getParsedScoreAttribute()
     {
-        if($this->contest)
-        return $this->compiler->lang;
+        if(is_null($this->contest)) {
+            $tot_score=100;
+        } else {
+            $tot_score=$this->contest->problems->where('pid', $this->pid)->first()->points;
+        }
+        return round($this->score/$this->problem->tot_score*$tot_score,1);
     }
 
     public function getSubmissionDateParsedAttribute()

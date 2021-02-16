@@ -275,7 +275,7 @@ return [
         "author"=>"Youjie Zhang",
         "organization"=>"Youjie Zhang",
         "developers"=>"Youjie Zhang",
-        "major"=>"0.1.0",
+        "major"=>"0.4.2",
     ],
 
 ];

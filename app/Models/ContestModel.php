@@ -1288,6 +1288,9 @@ class ContestModel extends Model
          * 2 stands for participant*
          * 3 stands for admin      *
          ***************************/
+        if($uid == 1) {
+            return 3;
+        }
         if ($uid==0 || filter_var($cid, FILTER_VALIDATE_INT) === false) {
             return 0;
         }

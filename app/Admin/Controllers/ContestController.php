@@ -83,30 +83,15 @@ class ContestController extends Controller
     {
         $grid=new Grid(new EloquentContestModel);
         $grid->column('cid', "ID")->sortable();
-        $grid->column("gid", "Group");
-        $grid->name("Name")->editable();
-        $grid->verified("Verified")->display(function($verified) {
-            return $verified ? "Yes" : "No";
-        });
-        $grid->rated("Rated")->display(function($rated) {
-            return $rated ? "Yes" : "No";
-        });
-        $grid->anticheated("AntiCheated")->display(function($anticheated) {
-            return $anticheated ? "Yes" : "No";
-        });
-        $grid->featured("Featured")->display(function($featured) {
+        $grid->name("名称")->editable();
+        $grid->featured("重点考试")->display(function($featured) {
             return $featured ? "Yes" : "No";
         });
-        $grid->column("rule", "Rule");
-        $grid->begin_time("Begins");
-        $grid->end_time("Ends");
-        $grid->public("Public")->display(function($public) {
-            return $public ? "Yes" : "No";
+        $grid->column("parsed_rule", "规则")->display(function() {
+            return $this->parsed_rule;
         });
-        $grid->column("registration", "Registration")->display(function($registration) {
-            return $registration ? "Required" : "Free";
-        });
-        $grid->registration_due("Registration Due");
+        $grid->begin_time("开始时间");
+        $grid->end_time("结束时间");
         $grid->filter(function(Grid\Filter $filter) {
             // $filter->equal('gid');
             $filter->like('name', "名称");
@@ -166,7 +151,11 @@ class ContestController extends Controller
         $form->image('img', '考试封面图')->uniqueName()->move("static/img/contest");
         $form->hasMany('problems', '考试题目', function (Form\NestedForm $form) {
             $form->number('number', '编号')->default(1)->required();
-            $form->text('ncode', '字母题号')->default("A")->required();
+            $ncodeArr=[];
+            foreach(range('A', 'Z') as $alpha){
+                $ncodeArr[$alpha]=$alpha;
+            }
+            $form->select('ncode', '字母题号')->options($ncodeArr)->default("A")->required();
             $form->select('pid', '题目')->options(Problem::all()->pluck('pcode', 'pid'))->required();
             $form->text('alias', '题目别名');
             $form->number('points', '题目分值')->default(100)->required();

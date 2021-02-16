@@ -102,7 +102,7 @@ class SubmissionController extends Controller
             return $this->user->name;
         });
         $grid->column("contest_name","比赛名称")->display(function () {
-            return $this->contest->name;
+            if(!is_null($this->contest)) return $this->contest->name;
         });
         $grid->column("problem_pcode","题目名称")->display(function () {
             return $this->problem->readable_name;

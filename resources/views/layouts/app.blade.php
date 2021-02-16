@@ -266,7 +266,7 @@
                                     <a class="dropdown-item" href="/account/submissions"><i class="MDI airballoon"></i> Submissions</a>
                                     <a class="dropdown-item" href="/account/settings"><i class="MDI settings"></i> Advanced Settings</a>
                                     -->
-                                    @if (Auth::check() || Auth::user()->id==1)
+                                    @if (Auth::check() && Auth::user()->id==1)
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/admin"><i class="MDI view-dashboard"></i> {{__('navigation.admin')}}</a>
                                     @endif
