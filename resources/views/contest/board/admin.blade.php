@@ -171,9 +171,9 @@
                 </ul>
                 @endif
                 @if(time() >= strtotime($basic['begin_time']))
-                <ul class="list-group bmd-list-group p-0">
+                {{-- <ul class="list-group bmd-list-group p-0">
                     <a href="/contest/{{$cid}}/board/clarification" class="list-group-item admin-tab-text wemd-white wemd-lighten-4"> {{__("contest.inside.admin.nav.announce")}}</a>
-                </ul>
+                </ul> --}}
                 @endif
                 <ul class="list-group bmd-list-group p-0">
                     <a href="/admin/contests/{{$cid}}/edit" class="list-group-item admin-tab-text wemd-white wemd-lighten-4"> {{__("contest.inside.admin.nav.manage")}}</a>
