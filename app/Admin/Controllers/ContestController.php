@@ -140,7 +140,7 @@ class ContestController extends Controller
             2 => "不允许任何人报名"
         ])->default(2);
         $form->datetime('registration_due', '限制考试报名截止时间')->default('1970-01-01 00:00:00');
-        $form->number('froze_length', '封榜时间（秒）')->default(0)->required();
+        $form->hidden('froze_length', '封榜时间（秒）')->default(0)->required();
         $form->select('status_visibility', '状态可见性')->options([
             0 => "谁的提交状态都无法查看",
             1 => "只可以查看自己的提交状态",
