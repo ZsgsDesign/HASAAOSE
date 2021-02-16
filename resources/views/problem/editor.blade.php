@@ -853,7 +853,7 @@
         var clipboard = new ClipboardJS('.cm-copy-snippet');
 
         clipboard.on('success', function(e) {
-            $(e.trigger).text("Copied");
+            $(e.trigger).text("已复制");
             e.clearSelection();
             setTimeout(()=>{
                 $(e.trigger).text("Copy");
@@ -861,7 +861,7 @@
         });
 
         clipboard.on('error', function(e) {
-            $(e.trigger).text("Failed");
+            $(e.trigger).text("复制失败");
             setTimeout(()=>{
                 $(e.trigger).text("Copy");
             }, 2000);
