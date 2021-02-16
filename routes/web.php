@@ -106,8 +106,8 @@ Route::group([
         Route::get('/{cid}/board/challenge/{ncode}', 'BoardController@editor')->middleware('auth')->name('editor');
         Route::get('/{cid}/board/rank', 'BoardController@rank')->middleware('auth')->name('rank');
         Route::get('/{cid}/board/status', 'BoardController@status')->middleware('auth')->name('status');
-        Route::get('/{cid}/board/clarification', 'BoardController@clarification')->middleware('auth')->name('clarification');
-        Route::get('/{cid}/board/print', 'BoardController@print')->middleware('auth')->name('print');
+        // Route::get('/{cid}/board/clarification', 'BoardController@clarification')->middleware('auth')->name('clarification');
+        // Route::get('/{cid}/board/print', 'BoardController@print')->middleware('auth')->name('print');
         Route::get('/{cid}/board/analysis', 'BoardController@analysis')->middleware('auth')->name('analysis');
     });
 
