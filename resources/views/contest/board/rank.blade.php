@@ -119,6 +119,9 @@
             <i class="MDI information-outline"></i> The scoreboard is now frozen as we enter the last {{$frozen_time}} of the competition.
         </div>
         @endif
+        <div class="alert alert-info cm-notification" role="alert">
+            <i class="MDI information-outline"></i> 本榜单每分钟更新一次，在管理面板点击“刷新考试榜单”可强制刷新。
+        </div>
         <div>
             <div class="table-responsive">
                 <table class="table">
