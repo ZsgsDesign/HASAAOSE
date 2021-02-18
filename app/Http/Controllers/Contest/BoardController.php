@@ -214,7 +214,6 @@ class BoardController extends Controller
     {
         $all_data=$request->all();
         $filter["ncode"]=isset($all_data["ncode"]) ? $all_data["ncode"] : null;
-        $filter["result"]=isset($all_data["result"]) ? $all_data["result"] : null;
         $filter["account"]=isset($all_data["account"]) ? $all_data["account"] : null;
         $cid=$request->cid;
         $contestModel=new ContestModel();
