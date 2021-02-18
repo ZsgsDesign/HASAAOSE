@@ -24,19 +24,53 @@ class StatusModel extends Model
         if (empty($status)) {
             return [];
         }
+        $ret = [
+            "sid" => $status["sid"],
+            "time" => $status["time"],
+            "verdict" => $status["verdict"],
+            "color" => $status["color"],
+            "solution" => $status["solution"],
+            "language" => $status["language"],
+            "submission_date" => $status["submission_date"],
+            "memory" => $status["memory"],
+            "compile_info" => $status["compile_info"],
+            "score" => $status["score"],
+        ];
         if ($status["share"]==1 && $status["cid"]) {
             $end_time=strtotime(DB::table("contest")->where(["cid"=>$status["cid"]])->select("end_time")->first()["end_time"]);
             if (time()<$end_time) {
-                $status["solution"]=null;
+                $ret["solution"]=null;
             }
         }
         if ($status["share"]==0 && $status["uid"]!=$uid) {
-            $status["solution"]=null;
+            $ret["solution"]=null;
+        }
+        if($status['cid']){
+            // HASAAOSE Judged Status Special Procedure
+            if (in_array($status["verdict"], [
+                "Runtime Error",
+                "Wrong Answer",
+                "Time Limit Exceed",
+                "Real Time Limit Exceed",
+                "Accepted",
+                "Memory Limit Exceed",
+                "Presentation Error",
+                "Partially Accepted",
+                "Output Limit Exceeded",
+                "Idleness Limit Exceed",
+            ])) {
+                # Turn into Judged Status
+                $ret["verdict"] = "Judged";
+                $ret["color"] = "wemd-indigo-text";
+                $ret["score"] = 0;
+                $ret["time"] = 0;
+                $ret["memory"] = 0;
+            }
         }
         $compilerModel=new CompilerModel();
-        $status["lang"]=$compilerModel->detail($status["coid"])["lang"];
-        $status["owner"]=$uid==$status["uid"];
-        return $status;
+        $ret["lang"]=$compilerModel->detail($status["coid"])["lang"];
+        $ret["owner"]=$uid==$status["uid"];
+        return $ret;
     }
 
     public function downloadCode($sid, $uid)
