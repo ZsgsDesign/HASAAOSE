@@ -642,7 +642,7 @@
                         @if($contest_rule==1)
                             <info-badge data-toggle="tooltip" data-placement="top" title="{{__("problem.acratio")}}"><i class="MDI checkbox-multiple-marked-circle"></i> {{$detail['passed_count']}} / {{$detail['submission_count']}}</info-badge>
                         @else
-                            <info-badge data-toggle="tooltip" data-placement="top" title="{{__("problem.totalpoints")}}"><i class="MDI checkbox-multiple-marked-circle"></i> {{$detail["points"]}} Points</info-badge>
+                            <info-badge data-toggle="tooltip" data-placement="top" title="{{__("problem.totalpoints")}}"><i class="MDI checkbox-multiple-marked-circle"></i> {{$detail["points"]}} 分</info-badge>
                         @endif
                     @else
                         <info-badge data-toggle="tooltip" data-placement="top" title="{{__("problem.acrate")}}"><i class="MDI checkbox-multiple-marked-circle"></i> {{$detail['ac_rate']}}%</info-badge>
