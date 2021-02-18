@@ -333,7 +333,7 @@ class SubmissionModel extends Model
 
     public function getProblemSubmission($pid, $uid, $cid=null)
     {
-        $statusList=DB::table($this->tableName)->where(['pid'=>$pid, 'uid'=>$uid, 'cid'=>$cid])->orderBy('submission_date', 'desc')->limit(10)->get()->all();
+        $statusList=DB::table($this->tableName)->select("sid", "verdict", "score", "time", "memory", "language", "color")->where(['pid'=>$pid, 'uid'=>$uid, 'cid'=>$cid])->orderBy('submission_date', 'desc')->limit(10)->get()->all();
         return $statusList;
     }
 

@@ -229,6 +229,28 @@ class ProblemController extends Controller
         $submission=new SubmissionModel();
         if (isset($all_data["cid"])) {
             $history=$submission->getProblemSubmission($all_data["pid"], Auth::user()->id, $all_data["cid"]);
+            // HASAAOSE Judged Status Special Procedure
+            foreach($history as &$h) {
+                if (in_array($h["verdict"], [
+                    "Runtime Error",
+                    "Wrong Answer",
+                    "Time Limit Exceed",
+                    "Real Time Limit Exceed",
+                    "Accepted",
+                    "Memory Limit Exceed",
+                    "Presentation Error",
+                    "Partially Accepted",
+                    "Output Limit Exceeded",
+                    "Idleness Limit Exceed",
+                ])) {
+                    # Turn into Judged Status
+                    $h["verdict"] = "Judged";
+                    $h["color"] = "wemd-indigo-text";
+                    $h["score"] = 0;
+                    $h["time"] = 0;
+                    $h["memory"] = 0;
+                }
+            }
         } else {
             $history=$submission->getProblemSubmission($all_data["pid"], Auth::user()->id);
         }
@@ -275,7 +297,7 @@ class ProblemController extends Controller
         $ret=$problemModel->addComment(Auth::user()->id,$pdid,$content,$reply_id);
         return $ret?ResponseModel::success(200, null, $ret):ResponseModel::err(3003);
     }
-  
+
     /**
      * Resubmit Submission Error Problems.
      *
