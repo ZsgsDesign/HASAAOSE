@@ -208,4 +208,31 @@
     function delay(ms){
         return new Promise(resolve => setTimeout(resolve, ms));
     }
+
+    function __transVerdict(verdict){
+        // since it's HASAAOSE ONLY, this function will only translate verdict from English to Chinese.
+        let mapVerdict = {
+            "Waiting"                : "等待中",
+            "Judge Error"            : "评测错误", // 不会遇到的
+            "System Error"           : "系统错误",
+            "Compile Error"          : "编译错误",
+            "Runtime Error"          : "运行时错误",
+            "Wrong Answer"           : "答案错误",
+            "Time Limit Exceed"      : "超出时间限制",
+            "Real Time Limit Exceed" : "超出实际时间限制",
+            "Accepted"               : "正确",
+            "Memory Limit Exceed"    : "超出内存限制",
+            "Presentation Error"     : "格式错误", // 不会遇到的
+            "Submitted"              : "已提交", // 不会遇到的
+            "Pending"                : "队列中",
+            "Judging"                : "评测中",
+            "Judged"                 : "已提交", // 防止有的考生看不懂已评测
+            "Partially Accepted"     : "部分正确",
+            'Submission Error'       : "提交错误",
+            'Output Limit Exceeded'  : "超出输出限制", // 不会遇到的
+            "Idleness Limit Exceed"  : "超出挂起限制", // 不会遇到的
+        };
+        let transVerdict = mapVerdict[verdict];
+        return transVerdict===undefined?verdict:transVerdict;
+    }
 </script>
