@@ -488,7 +488,7 @@ class ContestModel extends Model
                 ];
             } else {
                 $p["prob_status"]=[
-                    "icon"=>$prob_status["verdict"]=="Accepted" ? "checkbox-blank-circle" : "cisco-webex",
+                    "icon"=>in_array($prob_status["verdict"], ["Accepted", "Judged"]) ? "checkbox-blank-circle" : "cisco-webex",
                     "color"=>$prob_status["color"]
                 ];
             }

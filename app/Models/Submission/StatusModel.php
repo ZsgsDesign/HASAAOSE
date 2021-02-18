@@ -105,10 +105,32 @@ class StatusModel extends Model
                     'cid'=>$cid,
                     'verdict'=>'Partially Accepted'
                 ])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first();
-                return empty($pac) ? DB::table($this->tableName)->where(['pid'=>$pid, 'uid'=>$uid, 'cid'=>$cid])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first() : $pac;
+                $ret = empty($pac) ? DB::table($this->tableName)->where(['pid'=>$pid, 'uid'=>$uid, 'cid'=>$cid])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first() : $pac;
             } else {
-                return $ac;
+                $ret = $ac;
             }
+            if(!empty($ret)){
+                if (in_array($ret["verdict"], [
+                    "Runtime Error",
+                    "Wrong Answer",
+                    "Time Limit Exceed",
+                    "Real Time Limit Exceed",
+                    "Accepted",
+                    "Memory Limit Exceed",
+                    "Presentation Error",
+                    "Partially Accepted",
+                    "Output Limit Exceeded",
+                    "Idleness Limit Exceed",
+                ])) {
+                    # Turn into Judged Status
+                    $ret["verdict"] = "Judged";
+                    $ret["color"] = "wemd-indigo-text";
+                    $ret["score"] = 0;
+                    $ret["time"] = 0;
+                    $ret["memory"] = 0;
+                }
+            }
+            return $ret;
         } else {
             $ac=DB::table($this->tableName)->where([
                 'pid'=>$pid,
