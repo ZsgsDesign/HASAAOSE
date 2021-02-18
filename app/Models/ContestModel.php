@@ -1027,7 +1027,9 @@ class ContestModel extends Model
     public function getContestRecord($filter, $cid)
     {
         $basicInfo=$this->basic($cid);
-        $userInfo=DB::table('group_member')->where('gid',$basicInfo["gid"])->where('uid',Auth::user()->id)->get()->first();
+        // $userInfo=DB::table('group_member')->where('gid',$basicInfo["gid"])->where('uid',Auth::user()->id)->get()->first();
+        // HASAAOSE doesn't have group
+        $userInfo = null;
         $problemSet_temp=DB::table("contest_problem")->join("problem", "contest_problem.pid", "=", "problem.pid")->where([
             "cid"=>$cid
         ])->orderBy('ncode', 'asc')->select("ncode", "alias", "contest_problem.pid as pid", "title", "points", "tot_score")->get()->all();
@@ -1047,206 +1049,47 @@ class ContestModel extends Model
             $filter['pid'] = $problemSet_temp[$filter['pid']]['pid'];
         }
 
-        if($userInfo==null || $userInfo["role"]!=3){
-            if ($basicInfo["status_visibility"]==2) {
-                // View all
-                $paginator=DB::table("submission")->where([
-                    'cid'=>$cid
-                ])->where(
-                    "submission_date",
-                    "<",
-                    $end_time
-                )->join(
-                    "users",
-                    "users.id",
-                    "=",
-                    "submission.uid"
-                )->where(function ($query) use ($frozen_time) {
-                    $query->where(
-                        "submission_date",
-                        "<",
-                        $frozen_time
-                    )->orWhere(
-                        'uid',
-                        Auth::user()->id
-                    );
-                })->select(
-                    "sid",
-                    "uid",
-                    "pid",
-                    "name",
-                    "color",
-                    "verdict",
-                    "time",
-                    "memory",
-                    "language",
-                    "score",
-                    "submission_date",
-                    "share"
-                )->orderBy(
-                    'submission_date',
-                    'desc'
-                );
+        # HASAAOSE has fixed visibility settings
 
-                if($filter["pid"]){
-                    $paginator=$paginator->where(["pid"=>$filter["pid"]]);
-                }
+        $paginator=DB::table("submission")->where([
+            'cid'=>$cid,
+            'uid'=>Auth::user()->id
+        ])->where(
+            "submission_date",
+            "<",
+            $end_time
+        )->join(
+            "users",
+            "users.id",
+            "=",
+            "submission.uid"
+        )->select(
+            "sid",
+            "uid",
+            "pid",
+            "name",
+            "color",
+            "verdict",
+            "time",
+            "memory",
+            "language",
+            "score",
+            "submission_date",
+            "share"
+        )->orderBy(
+            'submission_date',
+            'desc'
+        );
 
-                if($filter["result"]){
-                    $paginator=$paginator->where(["verdict"=>$filter["result"]]);
-                }
-
-                if($filter["account"]){
-                    $paginator=$paginator->where(["name"=>$filter["account"]]);
-                }
-
-                $paginator=$paginator->paginate(50);
-            } elseif ($basicInfo["status_visibility"]==1) {
-                $paginator=DB::table("submission")->where([
-                    'cid'=>$cid,
-                    'uid'=>Auth::user()->id
-                ])->where(
-                    "submission_date",
-                    "<",
-                    $end_time
-                )->join(
-                    "users",
-                    "users.id",
-                    "=",
-                    "submission.uid"
-                )->select(
-                    "sid",
-                    "uid",
-                    "pid",
-                    "name",
-                    "color",
-                    "verdict",
-                    "time",
-                    "memory",
-                    "language",
-                    "score",
-                    "submission_date",
-                    "share"
-                )->orderBy(
-                    'submission_date',
-                    'desc'
-                );
-
-                if($filter["pid"]){
-                    $paginator=$paginator->where(["pid"=>$filter["pid"]]);
-                }
-
-                if($filter["result"]){
-                    $paginator=$paginator->where(["verdict"=>$filter["result"]]);
-                }
-
-                if($filter["account"]){
-                    $paginator=$paginator->where(["name"=>$filter["account"]]);
-                }
-
-                $paginator=$paginator->paginate(50);
-            } else {
-                return [
-                    "paginator"=>null,
-                    "records"=>[]
-                ];
-            }
-        }else{
-            if ($basicInfo["status_visibility"]==2) {
-                // View all
-                $paginator=DB::table("submission")->where([
-                    'cid'=>$cid
-                ])->where(
-                    "submission_date",
-                    "<",
-                    $end_time
-                )->join(
-                    "users",
-                    "users.id",
-                    "=",
-                    "submission.uid"
-                )->select(
-                    "sid",
-                    "uid",
-                    "pid",
-                    "name",
-                    "color",
-                    "verdict",
-                    "time",
-                    "memory",
-                    "language",
-                    "score",
-                    "submission_date",
-                    "share"
-                )->orderBy(
-                    'submission_date',
-                    'desc'
-                );
-
-                if($filter["pid"]){
-                    $paginator=$paginator->where(["pid"=>$filter["pid"]]);
-                }
-
-                if($filter["result"]){
-                    $paginator=$paginator->where(["verdict"=>$filter["result"]]);
-                }
-
-                if($filter["account"]){
-                    $paginator=$paginator->where(["name"=>$filter["account"]]);
-                }
-
-                $paginator=$paginator->paginate(50);
-            } elseif ($basicInfo["status_visibility"]==1) {
-                $paginator=DB::table("submission")->where([
-                    'cid'=>$cid,
-                    'uid'=>Auth::user()->id
-                ])->where(
-                    "submission_date",
-                    "<",
-                    $end_time
-                )->join(
-                    "users",
-                    "users.id",
-                    "=",
-                    "submission.uid"
-                )->select(
-                    "sid",
-                    "uid",
-                    "pid",
-                    "name",
-                    "color",
-                    "verdict",
-                    "time",
-                    "memory",
-                    "language",
-                    "score",
-                    "submission_date",
-                    "share"
-                )->orderBy(
-                    'submission_date',
-                    'desc'
-                );
-
-                if($filter["pid"]){
-                    $paginator=$paginator->where(["pid"=>$filter["pid"]]);
-                }
-
-                if($filter["result"]){
-                    $paginator=$paginator->where(["verdict"=>$filter["result"]]);
-                }
-
-                if($filter["account"]){
-                    $paginator=$paginator->where(["name"=>$filter["account"]]);
-                }
-
-                $paginator=$paginator->paginate(50);
-            } else {
-                return [
-                    "paginator"=>null,
-                    "records"=>[]
-                ];
-            }
+        if($filter["pid"]){
+            $paginator=$paginator->where(["pid"=>$filter["pid"]]);
         }
+
+        if($filter["account"]){
+            $paginator=$paginator->where(["name"=>$filter["account"]]);
+        }
+
+        $paginator=$paginator->paginate(50);
 
         $records=$paginator->all();
         foreach ($records as &$r) {
@@ -1254,13 +1097,36 @@ class ContestModel extends Model
             $r["submission_date"]=date('Y-m-d H:i:s', $r["submission_date"]);
             $r["nick_name"]="";
             $r["ncode"]=$problemSet[(string) $r["pid"]]["ncode"];
-            if ($r["verdict"]=="Partially Accepted") {
-                $score_parsed=round($r["score"] / $problemSet[(string) $r["pid"]]["tot_score"] * $problemSet[(string) $r["pid"]]["points"], 1);
-                $r["verdict"].=" ($score_parsed)";
+            // if ($r["verdict"]=="Partially Accepted") {
+            //     $score_parsed=round($r["score"] / $problemSet[(string) $r["pid"]]["tot_score"] * $problemSet[(string) $r["pid"]]["points"], 1);
+            //     $r["verdict"].=" ($score_parsed)";
+            // }
+            // if (!$contestEnd) {
+            //     $r["share"]=0;
+            // }
+
+            if (in_array($r["verdict"], [
+                "Runtime Error",
+                "Wrong Answer",
+                "Time Limit Exceed",
+                "Real Time Limit Exceed",
+                "Accepted",
+                "Memory Limit Exceed",
+                "Presentation Error",
+                "Partially Accepted",
+                "Output Limit Exceeded",
+                "Idleness Limit Exceed",
+            ])) {
+                # Turn into Judged Status
+                $r["verdict"] = "Judged";
+                $r["color"] = "wemd-indigo-text";
+                $r["score"] = 0;
+                $r["time"] = 0;
+                $r["memory"] = 0;
             }
-            if (!$contestEnd) {
-                $r["share"]=0;
-            }
+
+            # Share shall never be allowed in HASAAOSE, btw we should add option for managers to disable share, keep that a feature in NOJ main distribution
+            $r["share"]=0;
         }
         return [
             "paginator"=>$paginator,
