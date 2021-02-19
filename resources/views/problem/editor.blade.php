@@ -660,12 +660,12 @@
                                 <div class="dropdown-menu cm-scrollable-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 40px; left: 0px;">
                                     @foreach($problem_set as $p)
                                         <a class="dropdown-item" href="@if($p["ncode"]==$ncode) # @else /contest/{{$cid}}/board/challenge/{{$p["ncode"]}} @endif">
-                                            <span><i class="MDI {{$p["prob_status"]["icon"]}} {{$p["prob_status"]["color"]}}"></i> {{$p["ncode"]}}. {{$p["title"]}}</span>
+                                            <span><i class="MDI {{$p["prob_status"]["icon"]}} {{$p["prob_status"]["color"]}}"></i> {{$p["ncode"]}}. @if(blank($p["alias"])) {{$p["title"]}} @else {{$p["alias"]}} @endif</span>
                                         </a>
                                     @endforeach
                                 </div>
                             </div>
-                            @endif {{$detail["title"]}}</h1>
+                            @endif @if(blank($detail["alias"])) {{$detail["title"]}} @else {{$detail["alias"]}} @endif</h1>
 
                             @if($detail["file"] && !blank($detail["file_url"]))
                             <file-card class="mt-4 mb-3">

@@ -110,6 +110,9 @@ class BoardController extends Controller
         $compiler_list=$compilerModel->list($prob_detail["OJ"], $prob_detail["pid"]);
         $prob_status=$submissionModel->getProblemStatus($prob_detail["pid"], Auth::user()->id, $cid);
         $problemSet=$contestModel->contestProblems($cid, Auth::user()->id);
+        foreach($problemSet as $prob){
+            if($prob['pid']==$prob_detail['pid']) $prob_detail['alias']=$prob['alias'];
+        }
         $compiler_pref=$compilerModel->pref($compiler_list, $prob_detail["pid"], Auth::user()->id, $cid);
         $pref=$compiler_pref["pref"];
         $submit_code=$compiler_pref["code"];

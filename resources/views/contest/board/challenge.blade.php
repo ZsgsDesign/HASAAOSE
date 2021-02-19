@@ -145,7 +145,7 @@
                                 <i class="MDI {{$p["prob_status"]["icon"]}} {{$p["prob_status"]["color"]}}"></i>
                             </div>
                             <div style="display: inline-block">
-                                <p class="mb-0"><span>{{$p["ncode"]}}.</span> {{$p["title"]}}</p>
+                                <p class="mb-0"><span>{{$p["ncode"]}}.</span> @if(blank($p["alias"])) {{$p["title"]}} @else {{$p["alias"]}} @endif</p>
                                 @if($contest_rule==1)
                                     <small>{{$p["passed_count"]}} / {{$p["submission_count"]}}</small>
                                 @else
