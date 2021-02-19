@@ -113,7 +113,7 @@
         require.config({
             'vs/nls' : {
                 availableLanguages: {
-                    '*': '{{Str::lower(App::getLocale())}}'
+                    '*': 'zh-cn'
                 }
             }
         });
