@@ -425,15 +425,5 @@
 
     }, false);
 
-    @if(strtotime($detail['begin_time']) > time())
-
-    var remaining={{strtotime($detail['begin_time']) - time()}};
-    setInterval(()=>{
-        remaining--;
-        if(!remaining) location.reload();
-    },1000);
-
-    @endif
-
 </script>
 @endsection
