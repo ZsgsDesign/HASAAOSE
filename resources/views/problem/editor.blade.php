@@ -754,7 +754,7 @@
             </right-side>
         </top-side>
         <bottom-side>
-            <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="top" @if($status["verdict"]=="Compile Error") title="Compile Info" data-content="{{$status["compile_info"]}}"@endif style="color: #7a8e97" id="verdict_info" class="{{$status["color"]}}"><span id="verdict_circle"><i class="MDI checkbox-blank-circle"></i></span> <span id="verdict_text">{{$status["verdict"]}} @if($status["verdict"]=="Partially Accepted")({{round($status["score"]/$detail["tot_score"]*$detail["points"])}})@endif</span></a>
+            <a tabindex="0" @if($status["verdict"]=="Compile Error") title="Compile Info" data-content="{{$status["compile_info"]}}"@endif style="color: #7a8e97" id="verdict_info" class="{{$status["color"]}}"><span id="verdict_circle"><i class="MDI checkbox-blank-circle"></i></span> <span id="verdict_text">{{$status["verdict"]}} @if($status["verdict"]=="Partially Accepted")({{round($status["score"]/$detail["tot_score"]*$detail["points"])}})@endif</span></a>
             <div>
                 <button type="button" class="btn btn-secondary cm-active" id="problemBtn"> <i class="MDI book"></i></button>
                 <button type="button" class="btn btn-secondary cm-active" id="editorBtn"> <i class="MDI pencil"></i></button>
@@ -976,6 +976,12 @@
             adjustAppearance();
         });
 
+        $( "#verdict_info" ).click(function() {
+            if($("#verdict_text").hasClass('cm-popover-decoration')){
+                alert('<pre class="mb-0" style="white-space: pre-wrap;">'+$("#verdict_info").data('content')+'</pre>', $("#verdict_info").attr('title'),'bug');
+            }
+        });
+
         function adjustAppearance(){
             if(problemEnable && editorEnable){
                 $("top-side").removeClass("editor-only");
@@ -1083,7 +1089,7 @@
                     console.log(ret);
                     if(ret.ret==200){
                         // submitted
-                        $("#verdict_info").popover('dispose');
+                        // $("#verdict_info").popover('dispose');
                         $("#verdict_text").text("Pending");
                         $("#verdict_text").removeClass("cm-popover-decoration");
                         $("#verdict_info").removeClass();
@@ -1105,7 +1111,7 @@
                                             $("#verdict_info").attr('title',"Compile Info");
                                             $("#verdict_info").attr('data-content',ret.data.compile_info);
                                             $("#verdict_text").addClass("cm-popover-decoration");
-                                            $("#verdict_info").popover();
+                                            // $("#verdict_info").popover();
                                         }
                                         if(ret.data.verdict=="Partially Accepted"){
                                             let real_score = Math.round(ret.data.score / tot_scores * tot_points);
@@ -1192,7 +1198,7 @@
 
             $(".pre-animated").addClass("fadeInLeft");
             @if($status["verdict"]=="Compile Error")$("#verdict_text").addClass("cm-popover-decoration");@endif
-            $("#verdict_info").popover();
+            // $("#verdict_info").popover();
 
             require.config({ paths: { 'vs': '{{env('APP_URL')}}/static/library/monaco-editor/min/vs' }});
 
