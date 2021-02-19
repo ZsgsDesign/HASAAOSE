@@ -142,10 +142,8 @@ class ContestController extends Controller
         $form->datetime('registration_due', '限制考试报名截止时间')->default('1970-01-01 00:00:00');
         $form->hidden('froze_length', '封榜时间（秒）')->default(0)->required();
         $form->select('status_visibility', '状态可见性')->options([
-            0 => "谁的提交状态都无法查看",
-            1 => "只可以查看自己的提交状态",
-            2 => "可以查看所有人的提交状态"
-        ])->default(1)->required();
+            0 => "评测状态将会保持不可见"
+        ])->default(0)->required();
         $form->text('custom_title', '自定义考试导航标题');
         $form->image('custom_icon', '自定义考试导航图标')->uniqueName()->move("static/img/contest");
         $form->image('img', '考试封面图')->uniqueName()->move("static/img/contest");
