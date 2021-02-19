@@ -178,8 +178,8 @@
                                 </div>
                             </th> --}}
                             <th scope="col">{{__("status.result")}}</th>
-                            <th scope="col">{{__("status.time")}}</th>
-                            <th scope="col">{{__("status.memory")}}</th>
+                            {{-- <th scope="col">{{__("status.time")}}</th> --}}
+                            {{-- <th scope="col">{{__("status.memory")}}</th> --}}
                             <th scope="col">{{__("status.language")}}</th>
                             <th scope="col">{{__("status.submittime")}}</th>
                         </tr>
@@ -191,8 +191,8 @@
                             <td>{{$r["name"]}} @if($r["nick_name"])<span class="cm-subtext">({{$r["nick_name"]}})</span>@endif</td>
                             <td>{{$r["ncode"]}}</td>
                             <td class="{{$r["color"]}}">@if(Auth::check() && $r["uid"]==Auth::user()->id && $r["verdict"]=="Submission Error")<i class="MDI sync resubmit" data-sid="{{$r['sid']}}"></i>@endif {{$r["verdict"]}}</td>
-                            <td>{{$r["time"]}}ms</td>
-                            <td>{{$r["memory"]}}k</td>
+                            {{-- <td>{{$r["time"]}}ms</td> --}}
+                            {{-- <td>{{$r["memory"]}}k</td> --}}
                             <td>{{$r["language"]}}</td>
                             <td data-toggle="tooltip" data-placement="top" title="{{$r["submission_date"]}}">{{$r["submission_date_parsed"]}}</td>
                         </tr>
