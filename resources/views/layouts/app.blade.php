@@ -237,17 +237,6 @@
                 </ul>
 
                 <ul class="navbar-nav mundb-nav-right">
-                    @if(!Auth::check() || is_null(Auth::user()->contest_account))
-                    <form id="search-box" action="/search" method="get" class="form-inline my-2 my-lg-0 mundb-inline">
-                        <span class="bmd-form-group"><input id="search-key" class="form-control mr-sm-2 atsast-searchBox" name="q" type="search" value="{{$search_key ?? ''}}" placeholder="{{__('navigation.search')}}" autocomplete="off" aria-label="search"></span>
-                        <input type="hidden" name="tab" value="{{
-                            $navigation == 'DashBoard' ? 'users' :
-                            ($navigation == 'Group' ? 'groups' : (
-                            $navigation == 'Contest' ? 'contests' : 'problems'
-                            ))
-                        }}">
-                    </form>
-                    @endif
                     @if(Auth::check())
                     <i style="color:hsla(0,0%,100%,.5);margin-left:0.9rem;margin-top:-0.05rem;cursor:pointer" onclick="window.location='/message'" id="message-tip" class="MDI bell" data-toggle="tooltip" data-placement="bottom" title="loading..."></i>
                     @endif

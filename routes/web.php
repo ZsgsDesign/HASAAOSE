@@ -17,9 +17,9 @@ use App\Models\Eloquent\Group;
 Route::redirect('/home', '/', 301);
 Route::redirect('/acmhome/welcome.do', '/', 301);
 Route::get('/acmhome/problemdetail.do','MainController@oldRedirect')->name('old.redirect');
-Route::get('/opensearch.xml', function () {
-    return response(getOpenSearchXML(), 200)->header("Content-type","text/xml");
-});
+// Route::get('/opensearch.xml', function () {
+//     return response(getOpenSearchXML(), 200)->header("Content-type","text/xml");
+// });
 Route::group(['as' => 'latex.'], function () {
     Route::get('/latex.svg','LatexController@svg')->name('svg');
     Route::get('/latex.png','LatexController@png')->name('png');
@@ -27,7 +27,7 @@ Route::group(['as' => 'latex.'], function () {
 
 Route::get('/', 'MainController@home')->middleware('contest_account')->name('home');
 
-Route::get('/search', 'SearchController')->middleware('auth')->name('search');
+// Route::get('/search', 'SearchController')->middleware('auth')->name('search');
 
 Route::group(['prefix' => 'message','as' => 'message.','middleware' => ['user.banned','auth']], function () {
     Route::get('/', 'MessageController@index')->name('index');
@@ -166,7 +166,7 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.
     Route::post('postDiscussion', 'ProblemController@postDiscussion')->middleware('auth');
     Route::post('addComment', 'ProblemController@addComment')->middleware('auth');
 
-    Route::post('search', 'SearchController')->middleware('auth')->name('ajax.search');
+    // Route::post('search', 'SearchController')->middleware('auth')->name('ajax.search');
 
     Route::group(['prefix' => 'message'], function () {
         Route::post('unread', 'MessageController@unread')->middleware('auth');
