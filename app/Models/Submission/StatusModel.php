@@ -91,23 +91,21 @@ class StatusModel extends Model
     {
         if ($cid) {
             $end_time=strtotime(DB::table("contest")->where(["cid"=>$cid])->select("end_time")->first()["end_time"]);
-            // Get the very first AC record
-            $ac=DB::table($this->tableName)->where([
+            // Get the very first non-CE record
+            $nonError=DB::table($this->tableName)->where([
                 'pid'=>$pid,
                 'uid'=>$uid,
                 'cid'=>$cid,
-                'verdict'=>'Accepted'
-            ])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first();
-            if (empty($ac)) {
-                $pac=DB::table($this->tableName)->where([
+            ])->whereNotIn("color", ['wemd-orange-text', 'wemd-black-text'])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first();
+            if (empty($nonError)) {
+                $error=DB::table($this->tableName)->where([
                     'pid'=>$pid,
                     'uid'=>$uid,
                     'cid'=>$cid,
-                    'verdict'=>'Partially Accepted'
-                ])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first();
-                $ret = empty($pac) ? DB::table($this->tableName)->where(['pid'=>$pid, 'uid'=>$uid, 'cid'=>$cid])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first() : $pac;
+                ])->whereIn("color", ['wemd-orange-text', 'wemd-black-text'])->where("submission_date", "<", $end_time)->orderBy('submission_date', 'desc')->first();
+                $ret = $error;
             } else {
-                $ret = $ac;
+                $ret = $nonError;
             }
             if(!empty($ret)){
                 if (in_array($ret["verdict"], [
