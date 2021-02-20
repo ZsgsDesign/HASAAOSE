@@ -44,7 +44,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, success: function(ret) {
-                console.log(ret);
+                // console.log(ret);
                 if(ret.ret==200){
                     var id = new Date().getTime();
                     $('body').append(`
@@ -155,7 +155,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, success: function(ret) {
-                console.log(ret);
+                // console.log(ret);
                 if(ret.ret==200){
                     var id = new Date().getTime();
                     $('body').append(`
@@ -205,7 +205,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, success: function(ret) {
-                console.log(ret);
+                // console.log(ret);
                 if(ret.ret==200){
                     $(`#submission_share${id}`).modal('toggle');
                     location.reload();
@@ -234,7 +234,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, success: function(ret) {
-                console.log(ret);
+                // console.log(ret);
                 if(ret.ret==200){
                     $(`#submission_share${id}`).modal('toggle');
                     location.href="/pb/"+ret.data.code;
