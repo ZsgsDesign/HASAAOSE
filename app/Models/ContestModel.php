@@ -1043,8 +1043,8 @@ class ContestModel extends Model
         $contestEnd=time()>$end_time;
 
         $filter['pid'] = array_search($filter['ncode'], array_column($problemSet_temp, 'ncode'));
-        if($filter['pid']==false){
-            $filter['pid'] = null;
+        if($filter['pid']===false){
+            $filter['pid'] = is_null($filter['ncode'])?null:-1;
         }else{
             $filter['pid'] = $problemSet_temp[$filter['pid']]['pid'];
         }
