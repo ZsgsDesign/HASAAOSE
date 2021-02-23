@@ -157,7 +157,7 @@ class ProblemController extends Controller
             $form->simplemde('input');
             $form->simplemde('output');
             $form->simplemde('note');
-            $form->hasMany('problemSamples', 'samples', function (Form\NestedForm $form) {
+            $form->hasMany('problem_samples', 'samples', function (Form\NestedForm $form) {
                 $form->textarea('sample_input', 'sample input')->rows(3);
                 $form->textarea('sample_output', 'sample output')->rows(3);
                 $form->textarea('sample_note', 'sample note')->rows(3);

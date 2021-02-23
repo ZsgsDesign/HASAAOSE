@@ -25,7 +25,7 @@ class Problem extends Model
         return $this->hasMany('App\Models\Eloquent\Submission','pid','pid');
     }
 
-    public function problemSamples()
+    public function problem_samples()
     {
         return $this->hasMany('App\Models\Eloquent\ProblemSample','pid','pid');
     }
@@ -61,7 +61,7 @@ class Problem extends Model
                 'sample_output' => $sample->sample_output,
                 'sample_note' => $sample->sample_note,
             ];
-        }, $this->problemSamples()->select('sample_input', 'sample_output', 'sample_note')->get()->all());
+        }, $this->problem_samples()->select('sample_input', 'sample_output', 'sample_note')->get()->all());
     }
 
     public function setSamplesAttribute($value)
