@@ -14,7 +14,7 @@ class UserModel extends Model
      * @var array
      */
     protected $fillable=[
-        'name', 'email', 'password', 'avatar', 'contest_account'
+        'name', 'email', 'email_verified_at', 'password', 'avatar', 'contest_account', 'prefix'
     ];
 
     /**
