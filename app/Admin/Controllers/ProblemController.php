@@ -100,21 +100,21 @@ class ProblemController extends Controller
     {
         $grid=new Grid(new EloquentProblemModel);
         $grid->column('pid', "ID")->sortable();
-        $grid->column('pcode', "PCode")->editable();
-        $grid->title("Title")->editable();
-        $grid->solved_count();
-        $grid->time_limit("Time/ms")->editable();
-        $grid->memory_limit("Memory/kb")->editable();
-        $grid->OJ();
-        $grid->update_date();
-        $grid->tot_score("Score");
-        $grid->partial("Partial")->display(function($partial) {
-            return $partial ? 'Yes' : 'No';
-        });
-        $grid->markdown("Markdown")->display(function($markdown) {
-            return $markdown ? 'Yes' : 'No';
-        });
-        $grid->order_index("order")->sortable();
+        $grid->column('pcode', "题目代码")->editable();
+        $grid->column("title", '题目标题')->editable();
+        // $grid->solved_count();
+        $grid->column("time_limit", '时间限制/ms')->editable();
+        $grid->column("memory_limit", '空间限制/kb')->editable();
+        // $grid->OJ();
+        // $grid->update_date();
+        $grid->column("tot_score", '测试点数量');
+        // $grid->partial("Partial")->display(function($partial) {
+        //     return $partial ? 'Yes' : 'No';
+        // });
+        // $grid->markdown("Markdown")->display(function($markdown) {
+        //     return $markdown ? 'Yes' : 'No';
+        // });
+        // $grid->order_index("order")->sortable();
         $grid->filter(function(Grid\Filter $filter) {
             $filter->disableIdFilter();
             $filter->like('pcode','题目编号');
@@ -148,19 +148,19 @@ class ProblemController extends Controller
         $form=new Form(new EloquentProblemModel);
         $form->model()->makeVisible('password');
         $form->tab('Basic', function(Form $form){
-            $form->text('pid')->readonly();
-            $form->text('pcode')->rules('required');
-            $form->text('title')->rules('required');
-            $form->text('time_limit')->rules('required');
-            $form->text('memory_limit')->rules('required');
-            $form->simplemde('description')->rules('required');
-            $form->simplemde('input');
-            $form->simplemde('output');
-            $form->simplemde('note');
-            $form->hasMany('problem_samples', 'samples', function (Form\NestedForm $form) {
-                $form->textarea('sample_input', 'sample input')->rows(3);
-                $form->textarea('sample_output', 'sample output')->rows(3);
-                $form->textarea('sample_note', 'sample note')->rows(3);
+            $form->text('pid', 'ID')->readonly();
+            $form->text('pcode', '题目代码')->rules('required');
+            $form->text('title', '题目标题')->rules('required');
+            $form->text('time_limit', '时间限制')->rules('required');
+            $form->text('memory_limit', '内存限制')->rules('required');
+            $form->simplemde('description', '题目描述')->rules('required');
+            $form->simplemde('input', '题目输入');
+            $form->simplemde('output', '题目输出');
+            $form->simplemde('note', '题目备注');
+            $form->hasMany('problem_samples', '题目样例', function (Form\NestedForm $form) {
+                $form->textarea('sample_input', '样例输入')->rows(3);
+                $form->textarea('sample_output', '样例输出')->rows(3);
+                $form->textarea('sample_note', '样例备注')->rows(3);
             });
             /* $form->table('samples', function ($table) {
                 $table->textarea('sample_input', 'sample input');
@@ -172,25 +172,25 @@ class ProblemController extends Controller
             foreach($ojs_temp as $v){
                 $ojs[$v->oid] = $v->name;
             }
-            $form->select('oj', 'OJ')->options($ojs)->default(1)->rules('required');
+            $form->select('oj', '评测系统')->options($ojs)->default(1)->rules('required');
             /* $form->display('update_date'); */
             /* $form->text('tot_score')->rules('required');
             $form->select('partial', 'Partial Score')->options([
                 0 => "No",
                 1 => "Yes"
             ])->rules('required'); */
-            $form->radio('Hide')
+            $form->radio('Hide', '隐藏题目')
                 ->options([
-                    0 => 'NO',
-                    1 => 'YES'
+                    0 => '否',
+                    1 => '是'
                 ])->default(0)->rules('required');
-            $form->radio('spj', 'Use SPJ')
+            $form->radio('spj', '使用SPJ')
                 ->options([
-                    0 => 'NO',
-                    1 => 'YES',
+                    0 => '否',
+                    1 => '是'
                 ])->default(0)->rules('required');
-            $form->clang('spj_src','SPJ Source Code');
-            $form->file('test_case')->rules('required');
+            $form->clang('spj_src','SPJ源代码');
+            $form->file('test_case', '评测数据')->rules('required');
             $form->ignore(['test_case']);
 
             //Hidden parameters

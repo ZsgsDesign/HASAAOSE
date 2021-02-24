@@ -19,6 +19,7 @@ class GroupAdminController extends Controller
         $request->validate([
             'cid' => 'required|integer',
             'ccode' => 'required|min:3|max:10',
+            'cdomain' => 'required|min:3|max:10',
             'num' => 'required|integer'
         ]);
 
@@ -32,7 +33,7 @@ class GroupAdminController extends Controller
             return ResponseModel::err(2001);
         }
         $accountModel=new AccountModel();
-        $ret=$accountModel->generateContestAccount($all_data["cid"], $all_data["ccode"], $all_data["num"]);
+        $ret=$accountModel->generateContestAccount($all_data["cid"], $all_data["ccode"], $all_data["cdomain"] , $all_data["num"]);
         return ResponseModel::success(200, null, $ret);
     }
 

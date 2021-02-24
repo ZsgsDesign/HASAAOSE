@@ -58,28 +58,29 @@ class AccountModel extends Model
         return $ret;
     }
 
-    public function generateContestAccount($cid, $ccode, $num)
+    public function generateContestAccount($cid, $ccode, $cdomain, $num, $userName=[])
     {
         $ret=[];
         $starting=DB::table("users")->where('prefix','=',$ccode)->count();
         $contestModel=new ContestModel();
+        $nameIndicator = !empty($userName);
         for ($i=1; $i<=$num; $i++) {
             $pass=$this->generatePassword();
             $name=strtoupper($ccode).str_pad($starting+$i, 3, "0", STR_PAD_LEFT);
             $uid=$this->add([
-                'name' => $name,
-                'email' => "$name@icpc.njupt.edu.cn",
+                'name' => $nameIndicator ? $userName[$i-1] : $name,
+                'email' => "$name@$cdomain",
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 'password' => $pass,
                 'avatar' => "/static/img/avatar/default.png",
                 'contest_account' => $cid,
-                'prefix' => $ccode,
+                'prefix' => "$ccode@$cdomain",
             ]);
             $contestModel->grantAccess($uid, $cid, 1);
             $ret[]=[
                 "uid"=>$uid,
-                "name"=>$name,
-                "email"=>"$name@icpc.njupt.edu.cn",
+                "name"=>$nameIndicator ? $userName[$i-1] : $name,
+                "email"=>"$name@$cdomain",
                 "password"=>$pass
             ];
         }

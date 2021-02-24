@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Jobs\ProcessSubmission;
 use Illuminate\Validation\Validator;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use App\Jobs\GeneratePDF;
 use App\Jobs\AntiCheat;
 use Log;
@@ -224,10 +225,27 @@ class ContestAdminController extends Controller
         $request->validate([
             'cid' => 'required|integer',
             'ccode' => 'required|min:3|max:10',
-            'num' => 'required|integer|max:100'
+            'cdomain' => 'required|min:3|max:20',
+            'num' => 'required|integer|max:100',
+            'numFile' => 'file'
         ]);
 
         $all_data=$request->all();
+        $userName = [];
+
+        if($all_data["num"]==0){
+            if(!$request->hasFile('numFile')) return ResponseModel::err(2001);
+            $file = $request->file('numFile');
+            $fileName = time().'.'.$file->getClientOriginalExtension();;
+            $filePath = $file->storeAs('contestAccountImport', $fileName, ['disk'=>'private']);
+            $url = storage_path("/app/private/$filePath");
+            $file = IOFactory::load($url);
+            $rows = $file->getSheet(0)->toArray(null,false,false,true);
+            foreach ($rows as $r){
+                $userName[]=$r["A"];
+            }
+            $all_data["num"]= count($userName);
+        }
 
         $contestModel=new ContestModel();
         $verified=$contestModel->isVerified($all_data["cid"]);
@@ -239,7 +257,7 @@ class ContestAdminController extends Controller
             return ResponseModel::err(2001);
         }
         $accountModel=new AccountModel();
-        $ret=$accountModel->generateContestAccount($all_data["cid"], $all_data["ccode"], $all_data["num"]);
+        $ret=$accountModel->generateContestAccount($all_data["cid"], $all_data["ccode"], $all_data["cdomain"] , $all_data["num"], $userName);
         $cache_data=Cache::tags(['contest', 'account'])->get($all_data["cid"]);
         $cache_data[]=$ret;
         Cache::tags(['contest', 'account'])->put($all_data["cid"], $cache_data);
