@@ -198,8 +198,8 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.
 
     Route::group(['prefix' => 'contest'], function () {
         Route::get('updateProfessionalRate', 'ContestController@updateProfessionalRate')->middleware('auth');
-        Route::post('fetchClarification', 'ContestController@fetchClarification')->middleware('auth');
-        Route::post('requestClarification', 'ContestController@requestClarification')->middleware('auth', 'throttle:1,0.34');
+        // Route::post('fetchClarification', 'ContestController@fetchClarification')->middleware('auth');
+        // Route::post('requestClarification', 'ContestController@requestClarification')->middleware('auth', 'throttle:1,0.34');
         Route::post('registContest', 'ContestController@registContest')->middleware('auth')->name('ajax.contest.registContest');
         Route::post('getAnalysisData', 'ContestController@getAnalysisData')->middleware('auth')->name('ajax.contest.getAnalysisData');
         Route::get('downloadPDF', 'ContestController@downloadPDF')->middleware('auth')->name('ajax.contest.downloadPDF');

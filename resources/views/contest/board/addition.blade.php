@@ -3,6 +3,7 @@
     <!-- Content here would be shown at every page of the contest -->
     <script>
         window.addEventListener("load",function() {
+            /*
             function fetchClarification() {
                 $.ajax({
                     type: 'POST',
@@ -35,6 +36,7 @@
             setInterval(()=>{
                 fetchClarification();
             }, 15000);
+            */
         }, false);
     </script>
 
