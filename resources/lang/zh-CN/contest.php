@@ -11,7 +11,7 @@ return [
         'title'             => '筛选器',
         'icpc'              => 'ICPC',
         'ioi'               => 'IOI',
-        'fsjs'              => '研究生复试机试',
+        'fsjs'              => '机试',
         'public'            => '公开考试',
         'private'           => '私有考试',
         'verified'          => '认证考试',

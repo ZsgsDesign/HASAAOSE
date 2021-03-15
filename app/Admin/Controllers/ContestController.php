@@ -129,7 +129,7 @@ class ContestController extends Controller
         $form->hidden('pdf', '提供PDF试题档')->default(0);
         $form->simplemde('description', '比赛简介')->required();
         $form->select('rule', '赛制')->options([
-            5 => "研究生复试机试"
+            5 => "机试"
         ])->default(5)->required();
         $form->datetimeRange('begin_time', 'end_time', '比赛时间段')->required();
         $form->hidden('public', '公开比赛')->default(true);
