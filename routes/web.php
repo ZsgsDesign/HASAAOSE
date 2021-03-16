@@ -126,10 +126,10 @@ Route::group(['prefix' => 'system', 'middleware' => ['user.banned']], function (
 //     Route::get('/', 'RankController@index')->middleware('contest_account')->name('rank_index');
 // });
 
-Route::group(['prefix' => 'term', 'middleware' => ['user.banned']], function () {
-    Route::redirect('/', '/term/user', 301);
-    Route::get('/user', 'TermController@user')->name('term.user');
-});
+// Route::group(['prefix' => 'term', 'middleware' => ['user.banned']], function () {
+//     Route::redirect('/', '/term/user', 301);
+//     Route::get('/user', 'TermController@user')->name('term.user');
+// });
 
 // Route::group(['namespace' => 'Tool', 'middleware' => ['contest_account', 'user.banned']], function () {
 //     Route::group(['prefix' => 'tool'], function () {
