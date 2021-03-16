@@ -41,12 +41,12 @@ Route::group(['prefix' => 'account','middleware' => ['user.banned','auth']], fun
 });
 
 Route::group(['prefix' => 'oauth', 'namespace' => 'OAuth', 'as' => 'oauth.', 'middleware' => ['user.banned','auth']], function () {
-    Route::group(['prefix' => 'github', 'as' => 'github.'], function () {
-        Route::get('/', 'GithubController@redirectTo')->name('index');
-        Route::get('/unbind','GithubController@unbind')->name('unbind');
-        Route::get('/unbind/confirm','GithubController@confirmUnbind')->name('unbind.confirm');
-        Route::get('/callback', 'GithubController@handleCallback')->name('callback');
-    });
+    // Route::group(['prefix' => 'github', 'as' => 'github.'], function () {
+    //     Route::get('/', 'GithubController@redirectTo')->name('index');
+    //     Route::get('/unbind','GithubController@unbind')->name('unbind');
+    //     Route::get('/unbind/confirm','GithubController@confirmUnbind')->name('unbind.confirm');
+    //     Route::get('/callback', 'GithubController@handleCallback')->name('callback');
+    // });
 });
 
 Route::group(['prefix' => 'user','as' => 'user.', 'middleware' => ['user.banned','auth','contest_account']], function () {
