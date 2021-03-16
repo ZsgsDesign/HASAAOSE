@@ -33,8 +33,10 @@
             <a href="/contest/{{$cid}}/board/analysis" data-nav="analysis"><nav-item>{{__("contest.inside.topbar.analysis")}}</nav-item></a>
         @endif
     @endif
-    @if($clearance>2)
+    @if($clearance>2 || $basic['registration']==0)
         <a href="/contest/{{$cid}}/board/rank" data-nav="rank"><nav-item>{{__("contest.inside.topbar.rank")}}</nav-item></a>
+    @endif
+    @if($clearance>2)
         <a href="/contest/{{$cid}}/board/admin" data-nav="admin"><nav-item>{{__("contest.inside.topbar.admin")}}</nav-item></a>
     @endif
     <script>

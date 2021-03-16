@@ -167,6 +167,9 @@ class BoardController extends Controller
                 return Redirect::route('contest.detail', ['cid' => $cid]);
             }
         }
+        if($clearance<=2 && $basicInfo['registration']){
+            return Redirect::route('contest.detail', ['cid' => $cid]);
+        }
         $basicInfo=$contestModel->basic($cid);
         if($basicInfo['public'] && !$basicInfo['audit_status']){
             return Redirect::route('contest.detail', ['cid' => $cid]);
