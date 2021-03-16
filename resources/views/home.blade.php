@@ -105,7 +105,7 @@
 
 <div class="container mundb-standard-container">
     <div class="row">
-        <div class="col-sm-12 col-lg-8">
+        <div class="col-sm-12 col-lg-6">
             <div class="cm-title-section">
                 <h1>{{__('homepage.welcome', ['name' => config("app.name")])}}</h1>
                 <version-badge class="mb-5">
@@ -147,7 +147,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-6">
             <p class="cm-anno"><i class="MDI newspaper"></i> {{__('homepage.announcements.title')}}</p>
             <div>
                 @unless(empty($announcements))
