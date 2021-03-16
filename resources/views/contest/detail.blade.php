@@ -299,13 +299,13 @@
                                     <p class="list-group-item-text">{{__("contest.infobar.length")}}</p>
                                 </div>
                             </li>
-                            <li class="list-group-item">
+                            {{-- <li class="list-group-item">
                                 <i class="MDI buffer"></i>
                                 <div class="bmd-list-group-col">
                                     <p class="list-group-item-heading">{{$detail['problem_count']}}</p>
                                     <p class="list-group-item-text">{{__("contest.infobar.problems")}}</p>
                                 </div>
-                            </li>
+                            </li> --}}
                             <li class="list-group-item">
                                 <i class="MDI google-circles-extended"></i>
                                 <div class="bmd-list-group-col">
