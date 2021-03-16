@@ -165,9 +165,9 @@
             $('#describes-length').text(length);
         });
 
-        $('account-bind.github').on('click',function(){
-            window.location= '{{ route('oauth.github.index') }}' ;
-        });
+        // $('account-bind.github').on('click',function(){
+        //     window.location= '{{ route('oauth.github.index') }}' ;
+        // });
 
         $('#basic-info-update').on('click',function(){
             if($(this).is('.updating')){
