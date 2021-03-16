@@ -551,14 +551,14 @@ class ContestModel extends Model
         $frozen_time=DB::table("contest")->where(["cid"=>$cid])->select(DB::raw("UNIX_TIMESTAMP(end_time)-froze_length as frozen_time"))->first()["frozen_time"];
         $end_time=strtotime(DB::table("contest")->where(["cid"=>$cid])->select("end_time")->first()["end_time"]);
 
-        $highest_record=DB::table("submission")->where([
+        $latest_record=DB::table("submission")->where([
             "cid"=>$cid,
             "pid"=>$pid,
             "uid"=>$uid
-        ])->where("submission_date", "<", $frozen_time)->orderBy('score', 'desc')->first();
+        ])->where("submission_date", "<", $frozen_time)->orderBy('submission_date', 'desc')->first();
 
-        if (!empty($highest_record)) {
-            $ret["score"]=$highest_record["score"];
+        if (!empty($latest_record)) {
+            $ret["score"]=$latest_record["score"];
 
             $tot_score=DB::table("problem")->where([
                 "pid"=>$pid
