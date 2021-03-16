@@ -108,6 +108,22 @@ class Kernel extends ConsoleKernel
         //     // file_put_contents(storage_path('app/task-schedule.output'),"Successfully Synced Remote Rank and Clarification");
         // })->everyMinute()->description("Sync Remote Rank and Clarification");
 
+        $schedule->call(function () {
+            $contestModel = new ContestModel();
+            $syncList = $contestModel->runningContest();
+            foreach ($syncList as $syncContest) {
+                if (!isset($syncContest['vcid'])) {
+                    $contest = EloquentContestModel::find($syncContest['cid']);
+                    $contestRankRaw = $contest->rankRefresh();
+                    $cid=$syncContest['cid'];
+                    Cache::tags(['contest', 'rank'])->put($cid, $contestRankRaw);
+                    Cache::tags(['contest', 'rank'])->put("contestAdmin$cid", $contestRankRaw);
+                    continue ;
+                }
+            }
+        })->everyMinute()->description("Update Contest Rank");
+
+
         // $schedule->call(function () {
         //     $contestModel = new ContestModel();
         //     $syncList = $contestModel->runningContest();
