@@ -40,10 +40,12 @@ class StatusModel extends Model
             $end_time=strtotime(DB::table("contest")->where(["cid"=>$status["cid"]])->select("end_time")->first()["end_time"]);
             if (time()<$end_time) {
                 $ret["solution"]=null;
+                $ret['compile_info']="You don't have the permission to view this compile info.";
             }
         }
         if ($status["share"]==0 && $status["uid"]!=$uid) {
             $ret["solution"]=null;
+            $ret['compile_info']="You don't have the permission to view this compile info.";
         }
         if($status['cid']){
             // HASAAOSE Judged Status Special Procedure
