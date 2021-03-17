@@ -58,11 +58,11 @@ Route::group(['prefix' => 'problem', 'middleware' => ['user.banned', 'contest_ac
     Route::get('/', 'ProblemController@index')->name('problem_index');
     Route::get('/{pcode}', 'ProblemController@detail')->name('problem.detail');
     Route::get('/{pcode}/editor', 'ProblemController@editor')->middleware('auth')->name('problem_editor');
-    Route::get('/{pcode}/solution', 'ProblemController@solution')->middleware('auth')->name('problem_solution');
-    Route::get('/{pcode}/discussion', 'ProblemController@discussion')->middleware('auth')->name('problem.discussion');
+    // Route::get('/{pcode}/solution', 'ProblemController@solution')->middleware('auth')->name('problem_solution');
+    // Route::get('/{pcode}/discussion', 'ProblemController@discussion')->middleware('auth')->name('problem.discussion');
 });
 
-Route::get('/discussion/{dcode}', 'ProblemController@discussionPost')->middleware('auth', 'contest_account', 'user.banned')->name('problem.discussion.post');
+// Route::get('/discussion/{dcode}', 'ProblemController@discussionPost')->middleware('auth', 'contest_account', 'user.banned')->name('problem.discussion.post');
 
 Route::get('/status', 'StatusController@index')->middleware('contest_account', 'user.banned')->name('status_index');
 
@@ -159,12 +159,12 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => ['user.
     Route::post('joinGroup', 'GroupController@joinGroup')->middleware('auth');
     Route::post('exitGroup', 'GroupController@exitGroup')->middleware('auth');
     Route::get('downloadCode', 'ProblemController@downloadCode')->middleware('auth');
-    Route::post('submitSolutionDiscussion', 'ProblemController@submitSolutionDiscussion')->middleware('auth');
-    Route::post('updateSolutionDiscussion', 'ProblemController@updateSolutionDiscussion')->middleware('auth');
-    Route::post('deleteSolutionDiscussion', 'ProblemController@deleteSolutionDiscussion')->middleware('auth');
-    Route::post('voteSolutionDiscussion', 'ProblemController@voteSolutionDiscussion')->middleware('auth');
-    Route::post('postDiscussion', 'ProblemController@postDiscussion')->middleware('auth');
-    Route::post('addComment', 'ProblemController@addComment')->middleware('auth');
+    // Route::post('submitSolutionDiscussion', 'ProblemController@submitSolutionDiscussion')->middleware('auth');
+    // Route::post('updateSolutionDiscussion', 'ProblemController@updateSolutionDiscussion')->middleware('auth');
+    // Route::post('deleteSolutionDiscussion', 'ProblemController@deleteSolutionDiscussion')->middleware('auth');
+    // Route::post('voteSolutionDiscussion', 'ProblemController@voteSolutionDiscussion')->middleware('auth');
+    // Route::post('postDiscussion', 'ProblemController@postDiscussion')->middleware('auth');
+    // Route::post('addComment', 'ProblemController@addComment')->middleware('auth');
 
     // Route::post('search', 'SearchController')->middleware('auth')->name('ajax.search');
 

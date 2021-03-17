@@ -347,9 +347,9 @@
         <div class="col-sm-12 col-lg-3 no-print">
             <paper-card class="animated fadeInRight btn-group-vertical cm-action-group" role="group" aria-label="vertical button group">
                 <button type="button" class="btn btn-secondary" id="submitBtn"><i class="MDI send"></i>@guest {{__("problem.action.loginsubmit")}} @else {{__("problem.action.submit")}} @endguest</button>
-                <separate-line class="ultra-thin"></separate-line>
+                {{-- <separate-line class="ultra-thin"></separate-line>
                 <button type="button" class="btn btn-secondary" id="discussionBtn" style="margin-top: 5px;"><i class="MDI comment-multiple-outline"></i> {{__("problem.action.discussion")}} </button>
-                <button type="button" class="btn btn-secondary" id="solutionBtn"><i class="MDI comment-check-outline"></i> {{__("problem.action.solution")}} </button>
+                <button type="button" class="btn btn-secondary" id="solutionBtn"><i class="MDI comment-check-outline"></i> {{__("problem.action.solution")}} </button> --}}
             </paper-card>
             <paper-card class="animated fadeInRight">
                 <p>{{__("problem.info.title")}}</p>
