@@ -857,14 +857,14 @@
             $(e.trigger).text("已复制");
             e.clearSelection();
             setTimeout(()=>{
-                $(e.trigger).text("Copy");
+                $(e.trigger).text("复制");
             }, 2000);
         });
 
         clipboard.on('error', function(e) {
             $(e.trigger).text("复制失败");
             setTimeout(()=>{
-                $(e.trigger).text("Copy");
+                $(e.trigger).text("复制");
             }, 2000);
         });
     </script>
