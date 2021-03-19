@@ -1230,7 +1230,8 @@
 
             require(["vs/editor/editor.main"], function () {
                 editor = monaco.editor.create(document.getElementById('vscode'), {
-                    value: "{!!$submit_code!!}",
+                    // would not show solution source code
+                    value: "",
                     language: "@if(isset($compiler_list[$pref])){{$compiler_list[$pref]['lang']}}@else{{'plaintext'}}@endif",
                     theme: "vs-dark",
                     fontSize: 16,

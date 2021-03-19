@@ -68,6 +68,8 @@ class StatusModel extends Model
                 $ret["time"] = 0;
                 $ret["memory"] = 0;
             }
+            # would not show solution source code
+            $ret["solution"]=null;
         }
         $compilerModel=new CompilerModel();
         $ret["lang"]=$compilerModel->detail($status["coid"])["lang"];
