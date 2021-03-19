@@ -115,7 +115,9 @@ class BoardController extends Controller
         }
         $compiler_pref=$compilerModel->pref($compiler_list, $prob_detail["pid"], Auth::user()->id, $cid);
         $pref=$compiler_pref["pref"];
-        $submit_code=$compiler_pref["code"];
+        // $submit_code=$compiler_pref["code"];
+        # would not show solution source code in contest
+        $submit_code="";
         $oj_detail=$problemModel->ojdetail($prob_detail["OJ"]);
 
         if (empty($prob_status)) {
