@@ -52,6 +52,17 @@ paper-card:hover {
     <system-info data-catg="general">
         <div style="width:100%;">
             <div class="sys_logo"><img src="/favicon.png"></div>
+            <h1 class="sys_title" class="wemd-grey-text wemd-text-darken-3">HASAAOSE</h1>
+            <p class="sys_subtitle">High Availability and Safety Automatic Algorithm Online-Judge System for Examinations based on NOJ 0.4.2</p>
+            <version-badge class="mb-5">
+                <inline-div>Version</inline-div><inline-div>{{version()}}</inline-div>
+            </version-badge>
+            <div class="mb-5">
+                <h1 class="sys_title" class="wemd-grey-text wemd-text-darken-3">John Zhang</h1>
+                <p class="sys_subtitle"><a target="_blank" href="https://github.com/ZsgsDesign"><i class="MDI github-circle"></i></a> <a target="_blank" href="https://johnzhang.xyz"><i class="MDI web"></i></a> Executive Director / Full-Stack Engineer</p>
+            </div>
+            <hr>
+            <div class="sys_logo"><img src="/favicon.png"></div>
             <h1 class="sys_title" class="wemd-grey-text wemd-text-darken-3">NOJ</h1>
             <p class="sys_subtitle">Nanjing University of Posts and Telecommunications Online Judge</p>
             <version-badge class="mb-5">
@@ -120,11 +131,12 @@ paper-card:hover {
         </div>
     </system-info>
     @unless(empty($judgeServer))
+    <hr class="mb-5">
     <system-info data-catg="judgeServer">
         <div style="width:100%;">
             <div class="mb-5">
                 <h1 class="sys_title" class="wemd-grey-text wemd-text-darken-3">Server Status</h1>
-                <p class="sys_subtitle">Hereby is a list of all the judge servers of {{config("app.name")}}.</p>
+                <p class="sys_subtitle">Hereby is a list of all the judge servers.</p>
             </div>
             <div class="row justify-content-center">
                 @foreach($judgeServer as $j)
