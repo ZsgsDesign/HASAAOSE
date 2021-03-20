@@ -51,14 +51,14 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => config('app.url').'/storage',
             'visibility' => 'public',
         ],
 
         'NOJPublic' => [
             'driver' => 'local',
             'root' => base_path('public'),
-            'url' => env('APP_URL'),
+            'url' => config('app.url'),
             'visibility' => 'public',
         ],
 

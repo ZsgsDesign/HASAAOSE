@@ -108,7 +108,7 @@
 @section('additionJS')
     <script src="/static/library/monaco-editor/min/vs/loader.js"></script>
     <script>
-        require.config({ paths: { 'vs': '{{env('APP_URL')}}/static/library/monaco-editor/min/vs' }});
+        require.config({ paths: { 'vs': '{{config('app.url')}}/static/library/monaco-editor/min/vs' }});
 
         require.config({
             'vs/nls' : {
@@ -122,9 +122,9 @@
             getWorkerUrl: function(workerId, label) {
                 return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
                 self.MonacoEnvironment = {
-                    baseUrl: '{{env('APP_URL')}}/static/library/monaco-editor/min/'
+                    baseUrl: '{{config('app.url')}}/static/library/monaco-editor/min/'
                 };
-                importScripts('{{env('APP_URL')}}/static/library/monaco-editor/min/vs/base/worker/workerMain.js');`
+                importScripts('{{config('app.url')}}/static/library/monaco-editor/min/vs/base/worker/workerMain.js');`
                 )}`;
             }
         };
