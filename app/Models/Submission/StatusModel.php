@@ -80,7 +80,7 @@ class StatusModel extends Model
     public function downloadCode($sid, $uid)
     {
         $status=DB::table($this->tableName)->where(['sid'=>$sid])->first();
-        if (empty($status) || ($status["share"]==0 && $status["uid"]!=$uid)) {
+        if (empty($status) || $status["cid"] || ($status["share"]==0 && $status["uid"]!=$uid)) {
             return [];
         }
         $lang=DB::table("compiler")->where(['coid'=>$status["coid"]])->first()["lang"];
