@@ -116,7 +116,7 @@
     {{-- <privacy-section class="paper-card">
         <p>Privacy settings</p>
     </privacy-section> --}}
-    <email-section class="paper-card">
+    {{-- <email-section class="paper-card">
         <p>{{__('dashboard.setting.emailVerify')}}</p>
         <div class="text-center">
             @unless(emailVerified())
@@ -133,7 +133,7 @@
                 </p>
             @endunless
         </div>
-    </email-section>
+    </email-section> --}}
     @endif
     <password-section class="paper-card">
         <p>{{__('dashboard.setting.passwordChange')}}</p>
@@ -164,10 +164,6 @@
             var length = $(this).val().length;
             $('#describes-length').text(length);
         });
-
-        // $('account-bind.github').on('click',function(){
-        //     window.location= '{{ route('oauth.github.index') }}' ;
-        // });
 
         $('#basic-info-update').on('click',function(){
             if($(this).is('.updating')){
