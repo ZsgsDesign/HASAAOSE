@@ -165,7 +165,7 @@
                             <tr>
                                 <th scope="row"><span class="wemd-black-text"><i class="MDI checkbox-blank-circle"></i> SFE</span></td>
                                 <td nowrap>提交过于频繁</td>
-                                <td>没两次提交之间有10秒冷却时间，请勿频繁提交</td>
+                                <td>每两次提交之间有10秒冷却时间，请勿频繁提交</td>
                             </tr>
                             <tr>
                                 <th scope="row"><span class="wemd-blue-text"><i class="MDI checkbox-blank-circle"></i> Pending</span></td>
