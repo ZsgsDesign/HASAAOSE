@@ -138,6 +138,7 @@
     <link rel="stylesheet" href="/static/library/animate.css/animate.min.css">
     <link rel="stylesheet" href="/static/fonts/mdi-wxss/MDI.css">
     <link rel="stylesheet" href="/static/fonts/devicon/devicon.min.css">
+    <link rel="stylesheet" href="/static/fonts/langicon/langicon.css">
     <style>
         paper-card {
             display: block;
@@ -416,7 +417,7 @@
             box-shadow: inset rgba(0, 0, 0, 0.25) 0px 0px 15px;
         }
 
-        [class^="devicon-"], [class*=" devicon-"] {
+        [class^="devicon-"], [class*=" devicon-"], [class^="langicon-"], [class*=" langicon-"] {
             display:inline-block;
             transform: scale(1.3);
             padding-right:1rem;
