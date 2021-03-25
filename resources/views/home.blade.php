@@ -190,7 +190,7 @@
                             <tr>
                                 <th scope="row"><span class="wemd-black-text"><i class="MDI cisco-webex"></i> System Error</span></td>
                                 <td nowrap>系统错误</td>
-                                <td>请联系监考</td>
+                                <td>系统处理错误，一般是由于网络问题和缓存问题导致的，可以尝试刷新页面</td>
                             </tr>
                         </tbody>
                     </table>
