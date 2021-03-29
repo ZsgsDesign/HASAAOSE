@@ -49,10 +49,10 @@ Route::group(['prefix' => 'oauth', 'namespace' => 'OAuth', 'as' => 'oauth.', 'mi
     // });
 });
 
-Route::group(['prefix' => 'user','as' => 'user.', 'middleware' => ['user.banned','auth','contest_account']], function () {
-    Route::redirect('/', '/', 301);
-    Route::get('/{uid}', 'UserController@view')->name('view');
-});
+// Route::group(['prefix' => 'user','as' => 'user.', 'middleware' => ['user.banned','auth','contest_account']], function () {
+//     Route::redirect('/', '/', 301);
+//     Route::get('/{uid}', 'UserController@view')->name('view');
+// });
 
 Route::group(['prefix' => 'problem', 'middleware' => ['user.banned', 'contest_account']], function () {
     Route::get('/', 'ProblemController@index')->name('problem_index');
