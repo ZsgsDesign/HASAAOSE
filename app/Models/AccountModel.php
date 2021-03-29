@@ -61,7 +61,7 @@ class AccountModel extends Model
     public function generateContestAccount($cid, $ccode, $cdomain, $num, $userName=[])
     {
         $ret=[];
-        $starting=DB::table("users")->where('prefix','=',$ccode)->count();
+        $starting=DB::table("users")->where('prefix','=',"$ccode@$cdomain")->count();
         $contestModel=new ContestModel();
         $nameIndicator = !empty($userName);
         for ($i=1; $i<=$num; $i++) {
