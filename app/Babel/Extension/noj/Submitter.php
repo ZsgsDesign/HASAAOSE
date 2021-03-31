@@ -68,10 +68,14 @@ class Submitter extends Curl
         }
         $probBasic=$problemModel->basic($this->post_data["pid"]);
         $submitURL="http://".$bestServer["host"].":".$bestServer["port"];
+        $max_cpu_time_factor = 1;
+        if($this->post_data["lang"]=="java") $max_cpu_time_factor = 2;
+        elseif($this->post_data["lang"]=="py2") $max_cpu_time_factor = 4;
+        elseif($this->post_data["lang"]=="py3") $max_cpu_time_factor = 4;
         $submit_data=[
             "solution" => $this->post_data["solution"],
             "language" => $this->post_data["lang"],
-            "max_cpu_time" => $probBasic["time_limit"] * ($this->post_data["lang"]=="java" ? 3 : 1),
+            "max_cpu_time" => $probBasic["time_limit"] * $max_cpu_time_factor,
             "max_memory" => $probBasic["memory_limit"] * 1024,
             "test_case_id" => $probBasic["pcode"],
             "token" => $bestServer["token"],
