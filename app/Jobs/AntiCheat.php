@@ -59,17 +59,20 @@ class AntiCheat implements ShouldQueue
         $acceptedSubmissions=$contest->submissions->whereIn('verdict', [
             'Accepted',
             'Partially Accepted'
-        ]);
+        ])->sortByDesc('submission_date');
 
         $probIndex=$contest->problems->pluck('ncode', 'pid')->all();
         Storage::deleteDirectory("contest/anticheat/$cid/");
         sleep(1);
         $this->setProgressNow(20);
         $totMOSS=0;
+        $hasUser=[];
 
         foreach($acceptedSubmissions as $submission){
             $lang=$submission->compiler->lang;
             if(Arr::has($this->supportLang, $lang)){
+                if(in_array($submission->uid,$hasUser)) continue;
+                $hasUser[]=$submission->uid;
                 $prob=$probIndex[$submission->pid];
                 $lang=$this->supportLang[$lang];
                 $ext=$lang;
@@ -129,21 +132,12 @@ class AntiCheat implements ShouldQueue
         $generalPage=HtmlDomParser::str_get_html(Storage::disk('local')->get("$reportPath/index.html"), true, true, DEFAULT_TARGET_CHARSET, false);
         $table=$generalPage->find('table', 0);
         if(is_null($table)) return;
-        foreach($table->find('tr') as $tr){
-            if(Str::contains($tr->outertext, '<th>')) continue;
-            $firstUID=null;
-            foreach($tr->find('a') as $a){
-                $a->innertext=explode("$rawPath/",$a->plaintext)[1];
-                $a->innertext=str_replace(".$lang (",' (',$a->plaintext);
-                [$uid,$sid,$percent]=sscanf($a->innertext,"[%d][%d] (%d");
-                if($firstUID==$uid){
-                    $tr->outertext='';
-                    break;
-                }
-                $firstUID=$uid;
-                $username=EloquentUserModel::find($uid)->name;
-                $a->innertext="$sid. [$prob][$username][$percent%]";
-            }
+        foreach($table->find('a') as $a){
+            $a->innertext=explode("$rawPath/",$a->plaintext)[1];
+            $a->innertext=str_replace(".$lang (",' (',$a->plaintext);
+            [$uid,$sid,$percent]=sscanf($a->innertext,"[%d][%d] (%d");
+            $username=EloquentUserModel::find($uid)->name;
+            $a->innertext="$sid. [$prob][$username][$percent%]";
         }
         Storage::disk('local')->put("$reportPath/index.html",$table->outertext);
     }
