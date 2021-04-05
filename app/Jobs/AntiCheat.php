@@ -14,8 +14,10 @@ use Imtigger\LaravelJobStatus\Trackable;
 use KubAT\PhpSimple\HtmlDomParser;
 use PhpZip\ZipFile;
 use MOSS\MOSS;
+use Exception;
 use Storage;
 use Str;
+use Log;
 
 class AntiCheat implements ShouldQueue
 {
@@ -67,6 +69,7 @@ class AntiCheat implements ShouldQueue
         $this->setProgressNow(20);
         $totMOSS=0;
         $hasUser=[];
+        $probLangs=[];
 
         foreach($acceptedSubmissions as $submission){
             $lang=$submission->compiler->lang;
@@ -77,21 +80,23 @@ class AntiCheat implements ShouldQueue
                 $lang=$this->supportLang[$lang];
                 $ext=$lang;
                 Storage::put("contest/anticheat/$cid/raw/$prob/$lang/[$submission->uid][$submission->sid].$ext", $submission->solution);
-                $probLangs[$prob][$lang]=true;
+                if(!isset($probLangs[$prob][$lang])) $probLangs[$prob][$lang]=1;
+                else $probLangs[$prob][$lang]++;
                 $totMOSS++;
             }
         }
 
         $this->setProgressNow(40);
-        $this->stepVal=50/$totMOSS*3;
+        $this->stepVal=50/($totMOSS*3);
         $this->progressVal=40;
 
         foreach($probLangs as $prob=>$langs){
-            foreach($langs as $lang=>$availableVal){
+            foreach($langs as $lang=>$submissionCount){
                 $this->detectPlagiarism([
                     'lang'=>$lang,
                     'cid'=>$cid,
                     'prob'=>$prob,
+                    'count'=>$submissionCount,
                     'comment'=>"Contest #$cid Problem $prob Language $lang Code Plagiarism Check",
                 ]);
             }
@@ -101,8 +106,8 @@ class AntiCheat implements ShouldQueue
         $this->setProgressNow(100);
     }
 
-    private function incProgress(){
-        $this->progressVal+=$this->stepVal;
+    private function incProgress($factor=1){
+        $this->progressVal+=($this->stepVal)*$factor;
         $this->setProgressNow(intval($this->progressVal));
     }
 
@@ -112,17 +117,32 @@ class AntiCheat implements ShouldQueue
         $lang=$config['lang'];
         $cid=$config['cid'];
         $prob=$config['prob'];
+        $count=$config['count'];
         $comment=$config['comment'];
+        Log::debug("Detecting: ".$comment);
         $moss = new MOSS($userid);
         $moss->setLanguage($lang);
         $moss->addByWildcard(storage_path("app/contest/anticheat/$cid/raw/$prob/$lang/*"));
         $moss->setCommentString($comment);
-        $id=$moss->send();
-        $this->incProgress();
+        $attempts = 0;
+        do {
+            try {
+                $id=$moss->send();
+            } catch (Exception $exception) {
+                if($exception->getCode()==-1){
+                    $attempts++;
+                    sleep(15);
+                    continue;
+                }
+                throw $exception;
+            }
+            break;
+        } while($attempts < 10);
+        $this->incProgress($count);
         $moss->saveTo(storage_path("app/contest/anticheat/$cid/report/$prob/$lang"), $id);
-        $this->incProgress();
+        $this->incProgress($count);
         $this->afterWork($cid,$prob,$lang);
-        $this->incProgress();
+        $this->incProgress($count);
     }
 
     private function afterWork($cid,$prob,$lang)
@@ -148,7 +168,7 @@ class AntiCheat implements ShouldQueue
         $generalPage="<table><tr><th>File 1</th><th>File 2</th><th>Lines Matched</th></tr>";
         $index=0;
         foreach($probLangs as $prob=>$langs){
-            foreach($langs as $lang=>$availableVal){
+            foreach($langs as $lang=>$submissionCount){
                 $probPage=HtmlDomParser::str_get_html(Storage::disk('local')->get("contest/anticheat/$cid/report/$prob/$lang/index.html"), true, true, DEFAULT_TARGET_CHARSET, false);
                 $table=$probPage->find('table', 0);
                 if(is_null($table)) continue;
